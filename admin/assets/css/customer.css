@@ -1,0 +1,21 @@
+.table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.table th, .table td {
+    text-align: left;
+    padding: 10px;
+}
+
+.table td {
+    white-space: nowrap; /* Prevents wrapping of content */
+}
+
+.table td:last-child {
+    width: 150px; /* Fixed width for the Actions column */
+}
+
+.table .btn {
+    margin-right: 5px; /* Space between buttons */
+}

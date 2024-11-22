@@ -1,0 +1,134 @@
+/* ===== GOOGLE FONTS ===== */
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mr+Dafoe&display=swap");
+
+/* ===== VARIABLES =====*/
+:root {
+  /* Colors */
+  --logo-color: hsl(335, 82%, 51%);
+  --first-color: #f3156b;
+  --second-color: #ff6ba4;
+
+  /* Font and typography */
+  --body-font: "Montserrat", sans-serif;
+  --type-font: "Mr Dafoe", serif;
+  --food-font: "Barlow", serif;
+  --biggest-font-size: 4rem;
+  --h1--font-size: 2.25rem;
+  --h2--font-size: 1.5rem;
+  --h3--font-size: 1.25rem;
+  --normal-font-size: 1rem;
+  --small-font-size: 0.875rem;
+  --smaller-font-size: 0.813rem;
+
+  /* Font Weight */
+  --font-bold: 600;
+  --font-medium: 500;
+
+  /* Z Index */
+  --z-fixed: 100;
+  --z-tooltip: 10;
+}
+
+/* Responsive typography */
+@media screen and (max-width: 992px) {
+  :root {
+    --biggest-font-size: 2rem;
+    --h1--font-size: 1.5rem;
+    --h2--font-size: 1.25rem;
+    --h3--font-size: 1rem;
+    --normal-font-size: 0.938rem;
+    --small-font-size: 0.813rem;
+    --smaller-font-size: 0.756rem;
+  }
+}
+
+/* BASE STYLES START */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--body-font);
+}
+
+body {
+  height: 100%;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+}
+
+/* BASE STYLES END */
+
+.navbar {
+  font-weight: var(--font-medium);
+  font-size: 1.1rem;
+}
+
+.navbar-nav .nav-link.active {
+  color: var(--first-color);
+}
+
+.nav-link {
+  color: white;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--second-color);
+}
+
+.btn {
+  color: var(--first-color);
+  background-color: white;
+  border-radius: 20px;
+  padding: 6px 20px;
+  font-weight: var(--font-medium);
+}
+
+.btn:hover {
+  color: white;
+  background-color: var(--first-color);
+  transition: background-color 0.8s ease;
+}
+
+.parallax-section {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.parallax {
+  height: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.parallax-1 {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0)
+    ),
+    url("../img/2.jpg");
+}
+
+.parallax-section-1 .content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 2rem;
+}
