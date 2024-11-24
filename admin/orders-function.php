@@ -74,3 +74,24 @@ if (isset($_POST['productIncDec'])) {
         jResponse(500, 'error', 'Something went wrong');
     }
 }
+
+if (isset($_POST['placeOrderBtn'])) {
+    $phone = validate($_POST['phone']);
+    $paymentMode = validate($_POST['paymentMode']);
+
+    //Check if customer exists
+    $checkCustomer = mysqli_query($conn, "SELECT * FROM customer WHERE Phone='$phone' LIMIT 1");
+    if ($checkCustomer) {
+        if (mysqli_num_rows($checkCustomer) > 0) {
+            $_SESSION['invoice_no'] = "INV-" . rand(111111, 999999);
+            $_SESSION['phone'] = $phone;
+            $_SESSION['payment_mode'] = $paymentMode;
+            jResponse(200, 'success', 'Customer exists');
+        } else {
+            $_SESSION['phone'] = $phone;
+            jResponse(404, 'invalid', 'Customer does not exist');
+        }
+    } else {
+        jResponse(500, 'error', 'Something went wrong');
+    }
+}

@@ -4,6 +4,7 @@
 //         echo "Session has been cleared.";
 //         ?>
 
+// Cart item increment and decrement 
 $(document).ready(function () {
     $(document).on('click', '.increment', function () {
         var $row = $(this).closest('tr'); 
@@ -69,5 +70,43 @@ $(document).ready(function () {
         });
     }
 
-    
+    //Place Order
+    $(document).on('click', '.placeOrder', function(){
+        var paymentMode = $('#payment_mode').val();
+        var phone = $('#phone').val();
+        
+        console.log(paymentMode);
+        if(paymentMode == ''){
+            alert('Please Select Payment Option');
+            return false;
+        }
+
+        if(phone == '' && !$.isNumeric(phone)){
+            alert('Please enter a valid phone number');
+            return false;
+        }
+
+        var data = {
+            'placeOrderBtn': true,
+            'phone': phone,
+            'paymentMode': paymentMode
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "orders-function.php",
+            data: data,
+            success: function(response){
+                console.log(response);
+                var res = JSON.parse(response);
+                if(res.status == 200){
+                    window.location.href = "order-summary.php";
+                }else if (res.status == 404){
+                    alert(res.message);
+                }else{
+                    alert('Something went wrong');
+                }
+            }
+        })
+    });
 });

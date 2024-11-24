@@ -93,6 +93,27 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="mt-2">
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="payment_mode">Payment Mode</label>
+                            <select id="payment_mode" class="form-select">
+                                <option value="">-- Select Payment Option --</option>
+                                <option value="Gcash">Gcash</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Phone Number</label>
+                            <input type="number" name="" id="phone" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <br>
+                            <button type="button" class="btn btn-warning placeOrder">Place Order</button>
+                        </div>
+                    </div>
+                </div>
             <?php
             } else {
                 echo "<h5> No Item Added</h5>";
