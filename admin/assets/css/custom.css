@@ -1,3 +1,81 @@
+.sb-topnav{
+  background-color: #de1658;
+}
+
+.custom-icon {
+  color: #fff; /* Replace with your desired color */
+}
+
+.my-footer{
+  background-color: #de1658;
+}
+
+.sb-sidenav-menu::-webkit-scrollbar {
+  width: 12px;
+}
+
+.sb-sidenav-menu::-webkit-scrollbar-track {
+  /* background: #d71957; */
+  background: #ff6ba4;
+}
+
+/* Handle */
+.sb-sidenav-menu::-webkit-scrollbar-thumb {
+  background: #d71957;
+  border-radius: 5px;
+  /* background: #ff6ba4; */
+}
+
+/* Handle on hover */
+.sb-sidenav-menu::-webkit-scrollbar-thumb:hover {
+  background: #d71958a4;
+}
+
+body {
+    background-image: url(' ../img/1.jpg') !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-attachment: fixed;
+    /* background-color: violet; */
+}
+
+.sidebar-custom{
+    background-color: #000000d9;
+}
+
+.sidebar-custom .sb-sidenav-menu .sb-sidenav-menu-heading {
+    color: #d71957;
+}
+
+.sidebar-custom .sb-sidenav-menu .nav-link {
+    color: #ff6ba4;
+}
+
+.sb-sidenav-light .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+    color: #d71957;
+}
+  .sb-sidenav-light .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
+    color: #d71957;
+}
+
+.sb-sidenav-light .sb-sidenav-menu .nav-link:hover {
+    color: #f3156b;
+}
+  .sb-sidenav-light .sb-sidenav-menu .nav-link.active {
+    color: #f3156b;
+}
+  .sb-sidenav-light .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
+    color: #f3156b;
+}
+
+h1{
+  color: #de1658;
+}
+
+.container-fluid{
+    background: transparent;
+}
 
 .quantityInput{
     width: 50px !important;

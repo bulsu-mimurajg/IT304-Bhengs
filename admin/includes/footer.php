@@ -1,12 +1,13 @@
 </main>
 
-<footer class="py-4 bg-light mt-auto">
+<footer class="py-4 px-2 bg-transparent mt-5 mb-2">
     <div class="container-fluid px-4">
-        <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">Bhengs Homemade</div>
+        <div class="d-flex justify-content-end">
+            <div class="text-muted">System | Bhengs Homemade</div>
         </div>
     </div>
 </footer>
+
 </div>
 </div>
 <!-- JQUERY -->

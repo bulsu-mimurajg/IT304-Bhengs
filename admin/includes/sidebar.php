@@ -1,5 +1,5 @@
 <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <nav class="sb-sidenav accordion sidebar-custom" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
 
@@ -49,7 +49,7 @@
                 <div class="sb-sidenav-menu-heading">Manage Transactions</div>
                 <a class="nav-link" href="sales-report_summary.php">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
-                    List of Transactions
+                    Transactions
                 </a>
 
                 <div class="sb-sidenav-menu-heading">Manage Accounts</div>
