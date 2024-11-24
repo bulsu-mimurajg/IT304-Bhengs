@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="sb-sidenav-menu-heading">Manage Orders</div>
-                <a class="nav-link" href="sales-report_summary.php">
+                <a class="nav-link" href="orders.php">
                     <div class="sb-nav-link-icon"></div>
                     Orders
                 </a>

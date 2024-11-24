@@ -144,3 +144,14 @@ function delete($tableName, $id)
     $result = mysqli_query($conn, $query);
     return $result;
 }
+
+function jResponse($status, $status_type, $message)
+{
+    $response = [
+        'status' => $status,
+        'status_type' => $status_type,
+        'message' => $message
+    ];
+    echo json_encode($response);
+    return;
+}
