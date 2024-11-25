@@ -100,7 +100,7 @@ $(document).ready(function () {
                 console.log(response);
                 var res = JSON.parse(response);
                 if(res.status == 200){
-                    window.location.href = "order-summary.php";
+                    window.location.href = "orders-summary.php";
                 }else if (res.status == 404){
                     alert(res.message);
                 }else{

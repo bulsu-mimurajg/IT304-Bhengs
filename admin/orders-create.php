@@ -5,7 +5,7 @@
     <div class="card mt-5 shadow">
         <div class="card-header">
             <h4 class="mb-0">Order Details
-                <a href="order.php" class="btn btn-danger float-end">Back</a>
+                <a href="orders.php" class="btn btn-danger float-end">Back</a>
             </h4>
         </div>
         <div class="card-body">
@@ -54,8 +54,10 @@
             if (isset($_SESSION['productItems'])) {
                 $sessionProducts = $_SESSION['productItems'];
                 if (empty($sessionProducts)) {
-                    unset($_SESSION['productItemIds'][$index]);
-                    unset($_SESSION['productItems'][$index]);
+                    unset($_SESSION['productItemIds']);
+                    unset($_SESSION['productItems']);
+                    // echo '<script>windows.location.href = "orders-create.php"</script>';
+                    echo '<script>location.reload();</script>';
                 }
             ?>
                 <div class="table-responsive mb-3">
@@ -101,7 +103,7 @@
                             <label for="payment_mode">Payment Mode</label>
                             <select id="payment_mode" class="form-select">
                                 <option value="">-- Select Payment Option --</option>
-                                <option value="Gcash">Gcash</option>
+                                <option value="GCash">GCash</option>
                             </select>
                         </div>
                         <div class="col-md-4">
