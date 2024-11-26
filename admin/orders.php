@@ -1,7 +1,7 @@
 <?php include('includes/header.php') ?>
 
 <div class="container-fluid px-4">
-    <h1 class="mt-3">Create Order</h1>
+    <h1 class="mt-3">Orders</h1>
     <div class="card mt-5 shadow">
         <div class="card-header">
             <h4 class="mb-0">Order Details
