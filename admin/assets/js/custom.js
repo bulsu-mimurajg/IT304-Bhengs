@@ -109,4 +109,24 @@ $(document).ready(function () {
             }
         })
     });
+
+    //Save order to database
+    $(document).on('click', '#saveOrder', function(){
+        $.ajax({
+            type: "POST",
+            url: "orders-function.php",
+            data: {
+                'saveOrder': true
+            },
+            success: function(response){
+                console.log(response);
+                var res = JSON.parse(response);
+                if(res.status == 200){
+                    $('#orderSuccess').modal('show');
+                }else{
+                    alert(res.message);
+                }
+            }
+        });
+    });
 });

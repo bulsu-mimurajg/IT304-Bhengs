@@ -95,3 +95,72 @@ if (isset($_POST['placeOrderBtn'])) {
         jResponse(500, 'error', 'Something went wrong');
     }
 }
+
+
+if (isset($_POST['saveOrder'])) {
+    $phone = validate($_SESSION['phone']);
+    $paymentMode = validate($_SESSION['payment_mode']);
+    $invoiceNo = validate($_SESSION['invoice_no']);
+
+    //Check if customer exists
+    $checkCustomer = mysqli_query($conn, "SELECT * FROM customer WHERE Phone='$phone' LIMIT 1");
+    if ($checkCustomer) {
+        if (mysqli_num_rows($checkCustomer) > 0) {
+            $customerData = mysqli_fetch_assoc($checkCustomer);
+
+            if (isset($_SESSION['productItems'])) {
+                $sessionProducts = $_SESSION['productItems'];
+                $totalPrice = 0;
+                foreach ($sessionProducts as $item) {
+                    $totalPrice += $item['Price'] * $item['Quantity'];
+                }
+
+                $data = [
+                    'CustomerID' => $customerData['CustomerID'],
+                    'TrackingNo' => rand(11111, 99999),
+                    'InvoiceNo' => $invoiceNo,
+                    'TotalPrice' => $totalPrice,
+                    'OrderDate' => date('Y-m-d'),
+                    'OrderStatus' => 'pending',
+                    'PaymentMode' => $paymentMode
+                ];
+                $result = insert('orders', $data);
+                $lastOrderId = mysqli_insert_id($conn);
+
+                foreach ($sessionProducts as $item) {
+                    $productId = $item['ProductID'];
+                    $price = $item['Price'];
+                    $quantity = $item['Quantity'];
+
+                    $dataOrderItem = [
+                        'OrderID' => $lastOrderId,
+                        'ProductID' => $productId,
+                        'Price' => $price,
+                        'Quantity' => $quantity,
+                    ];
+                    $query = insert('order_items', $dataOrderItem);
+
+                    $checkQuantity = mysqli_query($conn, "SELECT * FROM product WHERE ProductID='$productId'");
+                    $productQuantity = mysqli_fetch_assoc($checkQuantity);
+                    $newProductQuantity = $productQuantity['Quantity'] = $quantity;
+
+                    $qtyUpdate = [
+                        'Quantity' => $newProductQuantity
+                    ];
+
+                    $updateQuantity = update('product', 'Quantity', $productId, $qtyUpdate);
+                }
+                unset($_SESSION['productItemIds']);
+                unset($_SESSION['productItems']);
+                unset($_SESSION['phone']);
+                unset($_SESSION['invoice_no']);
+
+                jResponse(200, 'success', 'Order successfully created');
+            }
+        } else {
+            jResponse(404, 'invalid', 'Customer does not exist');
+        }
+    } else {
+        jResponse(500, 'error', 'Something went wrong');
+    }
+}

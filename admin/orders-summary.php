@@ -1,8 +1,26 @@
 <?php include('includes/header.php');
 if (!isset($_SESSION['productItems'])) {
-    echo '<script>windows.location.href = "orders-create.php"</script>';
+    echo '<script>window.location.href = "orders-create.php"</script>';
 }
 ?>
+
+<div class="modal" tabindex="-1" id="orderSuccess" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Order Summary</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Order successfully created.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="orders.php" class="btn btn-secondary">Close</a>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container-fluid px-4">
     <h1 class="mt-3">Order Summary</h1>
@@ -46,7 +64,7 @@ if (!isset($_SESSION['productItems'])) {
                                                 <td align="end">
                                                     <h5 style="line-height:30px;margin:0;padding:0;">Invoice Details</h5>
                                                     <p style="line-height:20px;margin:0;padding:0;">Invoice number: <?= $invoiceNo ?></p>
-                                                    <p style="line-height:20px;margin:0;padding:0;">Invoice Date: <?= date(('d M y')) ?></p>
+                                                    <p style="line-height:20px;margin:0;padding:0;">Invoice Date: <?= date('d M y') ?></p>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -108,6 +126,11 @@ if (!isset($_SESSION['productItems'])) {
                         }
                         ?>
                     </div>
+                    <?php if (isset($_SESSION['productItems'])) : ?>
+                        <div class="mt-4 text-center">
+                            <button tpye="button" class="btn btn-success px-5" id="saveOrder">Save</button>
+                        </div>
+                    <?php endif ?>
                 </div>
             </div>
         </div>
