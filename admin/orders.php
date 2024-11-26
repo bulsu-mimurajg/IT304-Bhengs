@@ -44,7 +44,7 @@
                                         <td><?= $item['PaymentMode'] ?></td>
                                         <td>
                                             <a href="orders-view.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-info btn-sm">View</a>
-                                            <a href="" class="btn btn-danger btn-sm">Print</a>
+                                            <a href="orders-view-print.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-danger btn-sm">Print</a>
                                         </td>
                                     </tr>
                             <?php

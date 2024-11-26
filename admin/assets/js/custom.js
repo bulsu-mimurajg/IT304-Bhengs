@@ -5,128 +5,163 @@
 //         ?>
 
 // Cart item increment and decrement 
-$(document).ready(function () {
-    $(document).on('click', '.increment', function () {
-        var $row = $(this).closest('tr'); 
-        var $quantityInput = $row.find('.quantityInput'); 
-        var productId = $row.find('.prodId').val();
-        var currentValue = parseInt($quantityInput.val()) || 0;
+document.addEventListener("DOMContentLoaded", function () {
 
-        if (!isNaN(currentValue)) {
-            var newQty = currentValue + 1;
-            $quantityInput.val(newQty); 
-            updateProductRow(productId, newQty, $row); 
-        }
-    });
+    // Increment button functionality
+    document.querySelectorAll('.increment').forEach(function (incrementBtn) {
+        incrementBtn.addEventListener('click', function () {
+            var row = this.closest('tr');
+            var quantityInput = row.querySelector('.quantityInput');
+            var productId = row.querySelector('.prodId').value;
+            var currentValue = parseInt(quantityInput.value) || 0;
 
-    $(document).on('click', '.decrement', function () {
-        var $row = $(this).closest('tr'); 
-        var $quantityInput = $row.find('.quantityInput');
-        var productId = $row.find('.prodId').val(); //
-        var currentValue = parseInt($quantityInput.val()) || 0;
-
-        if (!isNaN(currentValue) && currentValue > 1) {
-            var newQty = currentValue - 1;
-            $quantityInput.val(newQty); 
-            updateProductRow(productId, newQty, $row); 
-        }
-    });
-
-    $(document).on('blur', '.quantityInput', function () {
-        var $row = $(this).closest('tr'); 
-        var productId = $row.find('.prodId').val(); 
-        var qty = parseInt($(this).val()) || 1; 
-    
-        if (qty < 1) qty = 1; 
-        $(this).val(qty); 
-        updateProductRow(productId, qty, $row); 
-    });
-
-    function updateProductRow(productId, qty, $row) {
-        $.ajax({
-            type: "POST",
-            url: "orders-function.php",
-            data: {
-                productIncDec: true,
-                ProductID: productId,
-                Quantity: qty
-            },
-            success: function (response) {
-                try {
-                    var res = JSON.parse(response);
-                    if (res.status == 200) {
-                        var price = parseFloat($row.find('td:nth-child(2)').text()); 
-                        var newTotal = (price * qty).toFixed(2);
-                        $row.find('td:nth-child(4)').text(newTotal);
-                    } else {
-                    }
-                } catch (error) {
-                    console.error("Parsing error:", error);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("An error occurred: " + error);
+            if (!isNaN(currentValue)) {
+                var newQty = currentValue + 1;
+                quantityInput.value = newQty;
+                updateProductRow(productId, newQty, row);
             }
         });
+    });
+
+    // Decrement button functionality
+    document.querySelectorAll('.decrement').forEach(function (decrementBtn) {
+        decrementBtn.addEventListener('click', function () {
+            var row = this.closest('tr');
+            var quantityInput = row.querySelector('.quantityInput');
+            var productId = row.querySelector('.prodId').value;
+            var currentValue = parseInt(quantityInput.value) || 0;
+
+            if (!isNaN(currentValue) && currentValue > 1) {
+                var newQty = currentValue - 1;
+                quantityInput.value = newQty;
+                updateProductRow(productId, newQty, row);
+            }
+        });
+    });
+
+    // Quantity input blur event
+    document.querySelectorAll('.quantityInput').forEach(function (quantityInput) {
+        quantityInput.addEventListener('blur', function () {
+            var row = this.closest('tr');
+            var productId = row.querySelector('.prodId').value;
+            var qty = parseInt(this.value) || 1;
+
+            if (qty < 1) qty = 1;
+            this.value = qty;
+            updateProductRow(productId, qty, row);
+        });
+    });
+
+    // Update product row (AJAX call)
+    function updateProductRow(productId, qty, row) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'orders-function.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            try {
+                var res = JSON.parse(xhr.responseText);
+                if (res.status == 200) {
+                    var price = parseFloat(row.querySelector('td:nth-child(2)').textContent);
+                    var newTotal = (price * qty).toFixed(2);
+                    row.querySelector('td:nth-child(4)').textContent = newTotal;
+                }
+            } catch (error) {
+                console.error("Parsing error:", error);
+            }
+        };
+        xhr.onerror = function () {
+            console.error("An error occurred: " + xhr.statusText);
+        };
+        xhr.send('productIncDec=true&ProductID=' + productId + '&Quantity=' + qty);
     }
 
-    //Place Order
-    $(document).on('click', '.placeOrder', function(){
-        var paymentMode = $('#payment_mode').val();
-        var phone = $('#phone').val();
-        
-        console.log(paymentMode);
-        if(paymentMode == ''){
-            alert('Please Select Payment Option');
-            return false;
-        }
+    // Place Order functionality
+    document.querySelectorAll('.placeOrder').forEach(function (placeOrderBtn) {
+        placeOrderBtn.addEventListener('click', function () {
+            var paymentMode = document.querySelector('#payment_mode').value;
+            var phone = document.querySelector('#phone').value;
 
-        if(phone == '' && !$.isNumeric(phone)){
-            alert('Please enter a valid phone number');
-            return false;
-        }
+            if (paymentMode === '') {
+                alert('Please Select Payment Option');
+                return false;
+            }
 
-        var data = {
-            'placeOrderBtn': true,
-            'phone': phone,
-            'paymentMode': paymentMode
-        };
+            if (phone === '' || isNaN(phone)) {
+                alert('Please enter a valid phone number');
+                return false;
+            }
 
-        $.ajax({
-            type: "POST",
-            url: "orders-function.php",
-            data: data,
-            success: function(response){
-                console.log(response);
-                var res = JSON.parse(response);
-                if(res.status == 200){
+            var data = 'placeOrderBtn=true&phone=' + phone + '&paymentMode=' + paymentMode;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'orders-function.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                var res = JSON.parse(xhr.responseText);
+                if (res.status === 200) {
                     window.location.href = "orders-summary.php";
-                }else if (res.status == 404){
+                } else if (res.status === 404) {
                     alert(res.message);
-                }else{
+                } else {
                     alert('Something went wrong');
                 }
-            }
-        })
-    });
-
-    //Save order to database
-    $(document).on('click', '#saveOrder', function(){
-        $.ajax({
-            type: "POST",
-            url: "orders-function.php",
-            data: {
-                'saveOrder': true
-            },
-            success: function(response){
-                console.log(response);
-                var res = JSON.parse(response);
-                if(res.status == 200){
-                    $('#orderSuccess').modal('show');
-                }else{
-                    alert(res.message);
-                }
-            }
+            };
+            xhr.send(data);
         });
     });
+
+    // Save order to database
+    document.querySelectorAll('#saveOrder').forEach(function (saveOrderBtn) {
+        saveOrderBtn.addEventListener('click', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'orders-function.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                var res = JSON.parse(xhr.responseText);
+                if (res.status == 200) {
+                    // Initialize and show the modal using Bootstrap 5 Modal API
+                    var modalElement = document.getElementById('orderSuccess');
+                    var modal = new bootstrap.Modal(modalElement);
+                    modal.show();
+                } else {
+                    alert(res.message);
+                }
+            };
+            xhr.send('saveOrder=true');
+        });
+    });
+
 });
+
+
+
+function printReceipt(){
+    var receiptData = document.getElementById("receipt").innerHTML;
+
+    // Create an iframe element dynamically
+    var iframe = document.createElement('iframe');
+    iframe.style.position = 'absolute';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = 'none';
+    
+    // Append the iframe to the body (but keep it hidden)
+    document.body.appendChild(iframe);
+    
+    // Write the receipt content to the iframe's document
+    var doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write('<html><body>');
+    doc.write(receiptData);
+    doc.write('</body></html>');
+    doc.close();
+    
+    // Print the content of the iframe
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+    
+    // Optionally remove the iframe after printing
+    setTimeout(function() {
+        document.body.removeChild(iframe);
+    }, 1000);
+}

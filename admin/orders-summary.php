@@ -16,13 +16,13 @@ if (!isset($_SESSION['productItems'])) {
             </div>
             <div class="modal-footer">
                 <a href="orders.php" class="btn btn-secondary">Close</a>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-warning px-5" onclick="printReceipt()"> Print </button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container-fluid px-4">
+<div class=" container-fluid px-4">
     <h1 class="mt-3">Order Summary</h1>
     <div class="row">
         <div class="col-md-12">
@@ -34,7 +34,7 @@ if (!isset($_SESSION['productItems'])) {
                 </div>
                 <div class="card-body">
                     <?php alertMessage(); ?>
-                    <div id="summary">
+                    <div id="receipt">
                         <?php
                         if (isset($_SESSION['phone'])) {
                             $phone = validate($_SESSION['phone']);
