@@ -4,7 +4,7 @@
             <div class="nav">
 
                 <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
@@ -44,12 +44,6 @@
                 <a class="nav-link" href="products.php">
                     <div class="sb-nav-link-icon"></div>
                     Products
-                </a>
-
-                <div class="sb-sidenav-menu-heading">Manage Transactions</div>
-                <a class="nav-link" href="sales-report_summary.php">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
-                    Transactions
                 </a>
 
                 <div class="sb-sidenav-menu-heading">Manage Accounts</div>
