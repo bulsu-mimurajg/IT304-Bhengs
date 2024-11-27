@@ -42,7 +42,7 @@
                                     </td>
                                     <td class="text-nowrap">
                                         <a href="products-edit.php?id=<?= $item['ProductID'] ?>" class="btn btn-sm btn-success">Edit</a>
-                                        <a href="products-delete.php?id=<?= $item['ProductID'] ?>" class="btn btn-sm btn-danger">Delete</a>
+                                        <a href="products-delete.php?id=<?= $item['ProductID'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this product?')">Delete</a>
                                     </td>
                                 </tr>
                             <?php
