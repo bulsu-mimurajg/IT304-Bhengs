@@ -67,7 +67,7 @@
     <?php alertMessage() ?>
 
     <ol class="breadcrumb mt-5 mb-2">
-        <li class="breadcrumb-item active">General</li>
+        <li class="breadcrumb-item active fw-bold">General</li>
     </ol>
     <div class="row">
         <div class="col-xl-3 col-md-6">
@@ -98,7 +98,7 @@
     </div>
 
     <ol class="breadcrumb mt-5 mb-2">
-        <li class="breadcrumb-item active">Orders</li>
+        <li class="breadcrumb-item active fw-bold">Orders</li>
     </ol>
     <div class="row">
         <div class="col-xl-3 col-md-6">
