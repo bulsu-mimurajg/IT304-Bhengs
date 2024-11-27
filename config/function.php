@@ -155,3 +155,19 @@ function jResponse($status, $status_type, $message)
     echo json_encode($response);
     return;
 }
+
+function getCount($tableName)
+{
+    global $conn;
+
+    $table = validate($tableName);
+
+    $query = "SELECT * FROM $table";
+    $result = mysqli_query($conn, $query);
+    if ($query) {
+        $totalCount = mysqli_num_rows($result);
+        return $totalCount;
+    } else {
+        return 'Something went wrong.';
+    }
+}
