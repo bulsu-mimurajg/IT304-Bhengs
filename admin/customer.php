@@ -42,7 +42,7 @@
                                     <td><?= $customer['Phone'] ?></td>
                                     <td class="text-nowrap">
                                         <a href="customer-edit.php?id=<?= $customer['CustomerID'] ?>" class="btn btn-sm btn-success">Edit</a>
-                                        <a href="customer-delete.php?id=<?= $customer['CustomerID'] ?>" class="btn btn-sm btn-danger">Delete</a>
+                                        <a href="customer-delete.php?id=<?= $customer['CustomerID'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete customer?')">Delete</a>
                                     </td>
                                 </tr>
                             <?php
