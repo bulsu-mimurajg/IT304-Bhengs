@@ -133,14 +133,25 @@ function getById($tableName, $columnName, $id)
 
 // Delete record
 
-function delete($tableName, $id)
+function delete($tableName, $columnName, $id)
 {
     global $conn;
 
     $table = validate($tableName);
     $id = validate($id);
 
-    $query = "DELETE FROM $table WHERE id='$id' LIMIT 1";
+    $query = "DELETE FROM $table WHERE $columnName='$id' LIMIT 1";
     $result = mysqli_query($conn, $query);
     return $result;
+}
+
+function jResponse($status, $status_type, $message)
+{
+    $response = [
+        'status' => $status,
+        'status_type' => $status_type,
+        'message' => $message
+    ];
+    echo json_encode($response);
+    return;
 }

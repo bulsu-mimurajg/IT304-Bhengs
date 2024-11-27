@@ -13,10 +13,21 @@ require '../config/function.php';
     <meta name="author" content="" />
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <!-- CSS -->
-    <link href="assets/css/styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="customer.css">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="assets/css/custom.css?v=1.0">
+    <!-- BOOTSTRAP CSS -->
+    <link href="assets/css/styles.css?v=1.0" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- <style>
+        body {
+            background-image: url(' ../assets/img/1.jpg') !important;
+            background-size: cover !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+            background-attachment: fixed;
+            /* background-color: violet; */
+        }
+    </style> -->
 </head>
 
 <body class="sb-nav-fixed">

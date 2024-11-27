@@ -36,7 +36,8 @@
                                     <td><?= $item['CategoryDescription'] ?></td>
                                     <td class="text-nowrap">
                                         <a href="categories-edit.php?id=<?= $item['CategoryID'] ?>" class="btn btn-sm btn-success">Edit</a>
-                                        <a href="categories-delete.php?id=<?= $item['CategoryID'] ?>" class="btn btn-sm btn-danger">Delete</a>
+                                        <a href="categories-delete.php?id=<?= $item['CategoryID'] ?>" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Delete category?')">Delete</a>
                                     </td>
                                 </tr>
                             <?php

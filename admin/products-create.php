@@ -21,7 +21,9 @@
                             if ($categories) {
                                 if (mysqli_num_rows($categories) > 0) {
                                     foreach ($categories as $item) {
-                                        echo '<option value="' . $item['CategoryID'] . '">' . $item['CategoryName'] . '</option>';
+                            ?>
+                                        <option value="<?= $item['CategoryID'] ?>"><?= $item['CategoryName'] ?></option>;
+                            <?php
                                     }
                                 } else {
                                     echo '<option value="">No category found.</option>';
