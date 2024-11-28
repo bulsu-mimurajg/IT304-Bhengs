@@ -23,7 +23,7 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody class="table-group-divider">
+                    <tbody class="table-group-divider text-nowrap">
                         <?php
                         $products = getAll('product');
                         if (mysqli_num_rows($products) > 0) {
