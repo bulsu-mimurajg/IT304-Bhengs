@@ -47,16 +47,16 @@
                                             <a href="orders-view-print.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-danger btn-sm">Print</a>
                                         </td>
                                     </tr>
-                            <?php
+                                <?php
                                 endforeach;
-                            }
-                        } else {
-                            ?>
-                            <tr>
-                                <td></td>
-                                <td colspan="7">No existing record.</td>
-                            </tr>
+                            } else {
+                                ?>
+                                <tr>
+                                    <td></td>
+                                    <td colspan="7">No existing record.</td>
+                                </tr>
                         <?php
+                            }
                         }
                         ?>
                     </tbody>
