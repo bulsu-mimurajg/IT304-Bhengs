@@ -120,7 +120,7 @@
             } else {
                 echo "<h5> No Item Added</h5>";
             }
-            print_r($_SESSION['productItems']);
+            // print_r($_SESSION['productItems']);
             ?>
         </div>
     </div>
