@@ -84,7 +84,7 @@
                                             <button class="input-group-text increment">+</button>
                                         </div>
                                     </td>
-                                    <td><?= number_format($item['Price'] * $item['Quantity'], 0) ?>.00</td>
+                                    <td><?= number_format($item['Price'] * $item['Quantity'], 0) ?></td>
                                     <td>
                                         <a href="orders-item-delete.php?index=<?= $key ?>" class="btn btn-danger">
                                             Remove

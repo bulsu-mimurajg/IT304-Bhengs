@@ -61,8 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
             try {
                 var res = JSON.parse(xhr.responseText);
                 if (res.status == 200) {
-                    var price = parseFloat(row.querySelector('td:nth-child(2)').textContent);
-                    var newTotal = (price * qty).toFixed(2);
+                    var price = parseInt(row.querySelector('td:nth-child(2)').textContent);
+                    var newTotal = (price * qty);
                     row.querySelector('td:nth-child(4)').textContent = newTotal;
                 }
             } catch (error) {
