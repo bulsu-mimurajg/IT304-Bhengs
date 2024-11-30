@@ -1,0 +1,117 @@
+/*LOGIN */
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  margin-top: -50px;
+}
+
+.loginBox {
+  width: 100%;
+  min-width: 500px;
+  height: auto;
+  background-color: #000000d8;
+  border: 2px solid #f3156b;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: white;
+}
+
+.loginBox h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userPassContainer {
+  width: 100%;
+}
+
+.userPassContainer label {
+  display: block;
+  font-size: 1rem;
+  margin-right: 10px;
+  text-align: left;
+  flex: 1;
+}
+
+
+.userPassContainer input {
+  width: 100%;
+  padding: 12px;
+  font-size: 13px;
+  height: 6vh;
+  border: 1px solid #de1658;
+  background-color: rgba(59, 59, 59, 0.692);
+  border-radius: 5px;
+  color: white;
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+
+.userPassContainer input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hrefContainer {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+
+}
+
+.forgot_pass {
+  text-align: right;
+  font-size: 0.9rem;
+  margin-top: -10px;
+}
+
+.btn-login {
+  color: white;
+  background-color: #d71957;
+  font-weight: bold;
+  font-size: 15px;
+  border: none;
+  padding: 8px 30px;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  width: 20vw;
+}
+
+.gotta-signup span, a {
+  font-size: 0.9rem; 
+  display: inline;
+  margin-top: 15px;
+  text-align: center;
+}
+
+hr {
+  border: 1px solid #f3156b;
+  margin: 20px 0;
+}
+
+.btn-login:hover {
+  background-color: #d7195891;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration-line: underline;
+  color: #d71957;
+}

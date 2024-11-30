@@ -1,0 +1,54 @@
+.forgotPassword {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .forgotBox {
+    width: 100%;
+    min-width: 500px;
+    height: auto;
+    background-color: #000000d8;
+    border: 2px solid #f3156b;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: white;
+    margin-top: -80px;
+  }
+
+  .forgotBox h1 {
+    font-size: 2rem ;
+    text-align: center;
+  }
+
+  .userPassContainer .note {
+    font-size: 12px;
+    color: #ccc;
+    text-align: center;
+  }
+
+  .btn-forgotPass{
+    color: white;
+    background-color: #d71957;
+    font-weight: bold;
+    font-size: 15px;
+    border: none;
+    padding: 8px 30px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    width: 20vw;
+  }
+
+  .forgotBox i {
+    margin-left: -420px;
+    font-size: 25px;
+  }
+
+  .forgotBox a {
+    text-decoration: none;
+  }
