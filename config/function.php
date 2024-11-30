@@ -145,6 +145,12 @@ function delete($tableName, $columnName, $id)
     return $result;
 }
 
+function logoutSession()
+{
+    unset($_SESSION['loggedIn']);
+    unset($_SESSION['loggedInUser']);
+}
+
 function jResponse($status, $status_type, $message)
 {
     $response = [
