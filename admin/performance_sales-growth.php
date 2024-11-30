@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Sales Growth by Period</h4>
                     <div class="card-text">
-                        <canvas id="salesGrowthChart" style="height: 5rem;"></canvas>
+                        <canvas id="salesGrowthChart"></canvas>
                     </div>
                 </div>
             </div>
