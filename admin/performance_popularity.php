@@ -10,7 +10,7 @@
             // Top 3 Most Ordered Products Query
             $topQuery = "SELECT 
                             p.ProductName,
-                            COUNT(DISTINCT o.OrderID) AS orderFrequency
+                            SUM(oi.Quantity) AS totalOrderedQuantity
                         FROM 
                             product p
                         INNER JOIN 
@@ -20,14 +20,15 @@
                         GROUP BY 
                             p.ProductName
                         ORDER BY 
-                            orderFrequency DESC
-                        LIMIT 3;";
+                            totalOrderedQuantity DESC
+                        LIMIT 3;
+                        ";
 
 
             // Top 3 Least Ordered Products Query
             $botQuery = "SELECT 
                             p.ProductName,
-                            COUNT(DISTINCT o.OrderID) AS orderFrequency
+                            COALESCE(SUM(oi.Quantity), 0) AS totalOrderedQuantity
                         FROM 
                             product p
                         LEFT JOIN 
@@ -37,8 +38,9 @@
                         GROUP BY 
                             p.ProductName
                         ORDER BY 
-                            orderFrequency ASC
-                        LIMIT 3;";
+                            totalOrderedQuantity ASC
+                        LIMIT 3;
+                        ";
 
 
             // Get Top Performing Products
@@ -49,7 +51,7 @@
                     while ($row = mysqli_fetch_assoc($topResult)) {
                         $topData[] = [
                             'productName' => $row['ProductName'],
-                            'orderFrequency' => $row['orderFrequency']
+                            'totalOrderedQuantity' => $row['totalOrderedQuantity']
                         ];
                     }
                     $topJSON = json_encode($topData);
@@ -66,7 +68,7 @@
                     while ($row = mysqli_fetch_assoc($botResult)) {
                         $botData[] = [
                             'productName' => $row['ProductName'],
-                            'orderFrequency' => $row['orderFrequency']
+                            'totalOrderedQuantity' => $row['totalOrderedQuantity']
                         ];
                     }
                     $botJSON = json_encode($botData);
@@ -107,7 +109,7 @@
 
     // Extract labels and data
     const topLabels = sortedTopData.map(item => item.productName);
-    const topFrequencies = sortedTopData.map(item => item.orderFrequency);
+    const topQuantities = sortedTopData.map(item => item.totalOrderedQuantity);
 
     // Configure and render the Top Products chart
     const topConfig = {
@@ -116,7 +118,7 @@
             labels: topLabels,
             datasets: [{
                 label: 'Order Frequency',
-                data: topFrequencies,
+                data: topQuantities,
                 borderWidth: 1,
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
@@ -130,7 +132,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Top Ordered Products (Frequency)'
+                    text: 'Top Performing Products'
                 }
             },
             scales: {
@@ -155,7 +157,7 @@
 
     // Extract labels and data
     const botLabels = sortedBotData.map(item => item.productName);
-    const botFrequencies = sortedBotData.map(item => item.orderFrequency);
+    const botQuantities = sortedBotData.map(item => item.totalOrderedQuantity);
 
     // Configure and render the Least Ordered Products chart
     const botConfig = {
@@ -164,7 +166,7 @@
             labels: botLabels,
             datasets: [{
                 label: 'Order Frequency',
-                data: botFrequencies,
+                data: botQuantities,
                 borderWidth: 1,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
@@ -178,7 +180,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Least Ordered Products (Frequency)'
+                    text: 'Least Performing Products'
                 }
             },
             scales: {
