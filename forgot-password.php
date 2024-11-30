@@ -1,12 +1,9 @@
 <?php include('./includes/header.php'); ?>
- <!-- CSS -->
- <link rel="stylesheet" href="./assets/css/style.css" />
- <link rel="stylesheet" href="./assets/css/login.css"/>
- <link rel="stylesheet" href="./assets/css/sign-up.css">
- <link rel="stylesheet" href="./assets/css/forgotPass.css">
+
+<link rel="stylesheet" href="assets/css/forgot-password.css">
 
 
-<main class="forgotPassword">
+<div class="forgotPassword">
   <div class="parallax parallax-1"></div>
   <div class="content centered">
     <div class="forgotBox">
@@ -22,5 +19,4 @@
         </div>
       </div>
     </div>
-
-</main>
+  </div>

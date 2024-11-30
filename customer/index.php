@@ -1,4 +1,4 @@
-<?php include('./includes/header.php'); ?>
+<?php include('includes/header.php'); ?>
 <!-- CSS -->
 <?php
 echo '<link rel="stylesheet" href="./assets/css/styles.css';
@@ -12,10 +12,8 @@ echo '<link rel="stylesheet" href="./assets/css/styles.css';
             <h1>Cravings? Satisfied!</h1>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
 
-            <a href="login.php">
-                <button class="btn_order_now">
-                    Order Now <i class="bx bx-purchase-tag"></i>
-                </button>
+            <a href="menu-all.php" class="btn_order_now">
+                Order Now <i class="bx bx-purchase-tag"></i>
             </a>
 
         </div>

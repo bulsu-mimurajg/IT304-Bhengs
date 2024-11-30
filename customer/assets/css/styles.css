@@ -396,7 +396,3 @@ button:hover {
     transform: translateY(-10px); 
   }
 }
-
-.gone{
-  display: none;
-}

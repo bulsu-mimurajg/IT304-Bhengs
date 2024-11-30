@@ -1,0 +1,91 @@
+body{
+  background-color: #1a1a1a;
+}
+
+.main-content {
+  flex: 1;
+  margin-top: 100px;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #f25d8e;
+}
+
+.orders-table {
+  width: 75%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.orders-table th,
+.orders-table td {
+  border: 1px solid #444;
+  padding: 12px;
+  text-align: center;
+}
+
+.orders-table th {
+  background-color: #821638;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.orders-table tr:nth-child(even) {
+  background-color: #2a2a2a;
+}
+
+.orders-table tr:hover {
+  background-color: #444;
+}
+
+.orders-table td {
+  font-size: 14px;
+}
+
+.view-details {
+  background-color: #821638;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.view-details:hover {
+  background-color: #a04452;
+}
+
+/* Customer-focused info box */
+.info-box {
+  width: 75%;
+  /* background-color: #2a2a2a; */
+  border: 1px solid #444;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info-box h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #f25d8e;
+}
+
+.info-box p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #afafaf;
+}
