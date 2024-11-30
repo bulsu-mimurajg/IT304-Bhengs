@@ -11,7 +11,7 @@
         <div class="card-body">
             <?php alertMessage(); ?>
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover text-nowrap">
                     <thead>
                         <tr>
                             <th>#</th>

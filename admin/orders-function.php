@@ -142,7 +142,21 @@ if (isset($_POST['saveOrder'])) {
 
                     $checkQuantity = mysqli_query($conn, "SELECT * FROM product WHERE ProductID='$productId'");
                     $productQuantity = mysqli_fetch_assoc($checkQuantity);
-                    $newProductQuantity = $productQuantity['Quantity'] = $quantity;
+                    $newProductQuantity = $productQuantity['Quantity'] - $quantity;
+
+                    if ($newProductQuantity < 0) {
+                        jResponse(400, 'invalid', "Not enough stock for product ID: $productId");
+                        return;
+                    }
+
+                    // Update the quantity in the database
+                    $updateQuantityQuery = "UPDATE product SET Quantity = '$newProductQuantity' WHERE ProductID = '$productId'";
+                    $updateQuantity = mysqli_query($conn, $updateQuantityQuery);
+
+                    if (!$updateQuantity) {
+                        jResponse(500, 'error', 'Failed to update product quantity');
+                        return;
+                    }
 
                     $qtyUpdate = [
                         'Quantity' => $newProductQuantity
