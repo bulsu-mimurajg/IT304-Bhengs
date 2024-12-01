@@ -16,7 +16,7 @@
             <p id="priceDisplay"> ₱95.00 </p>
 
             <div class="controls">
-                <button class="atcbtn">Add to Cart</button>
+                <a href="login.php" class="btn atcbtn">Add to Cart</a>
             </div>
 
 
@@ -29,7 +29,7 @@
             <p id="priceDisplay"> ₱ 95.00 </p>
 
             <div class="controls">
-                <button class="atcbtn">Add to Cart</button>
+                <a href="login.php" class="btn atcbtn">Add to Cart</a>
             </div>
 
 
@@ -44,7 +44,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
     </div>
 
@@ -60,7 +60,7 @@
             <h3><span style="color: #e21d70;">KC1</span> Kimchi Rice</h3>
             <p id="priceDisplay">₱ 40.00 </p>
 
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
 
@@ -71,7 +71,7 @@
 
             <div class="controls">
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
 
@@ -83,7 +83,7 @@
             <div class="controls">
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
         <div class="menubox">
@@ -96,7 +96,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
 
@@ -117,7 +117,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
     </div>
 
@@ -136,7 +136,7 @@
             <div class="controls">
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
         <div class="menubox">
@@ -147,7 +147,7 @@
             <div class="controls">
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
 
@@ -168,7 +168,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
         <div class="menubox">
@@ -180,7 +180,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
 
@@ -193,7 +193,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
     </div>
@@ -211,7 +211,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
         <div class="menubox">
@@ -223,7 +223,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
     </div>
 
@@ -240,7 +240,7 @@
             <div class="controls">
 
 
-                <button class="atcbtn">Add to Cart</button>
+                <a href="login.php" class="btn atcbtn">Add to Cart</a>
             </div>
 
 
@@ -265,7 +265,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
         <div class="menubox">
@@ -278,7 +278,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
         <div class="menubox">
@@ -291,7 +291,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
 
@@ -312,7 +312,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
         <div class="menubox">
@@ -324,7 +324,7 @@
             <div class="controls">
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
         <div class="menubox">
@@ -337,7 +337,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
         <div class="menubox">
@@ -350,7 +350,7 @@
 
 
             </div>
-            <button class="atcbtn">Add to Cart</button>
+            <a href="login.php" class="btn atcbtn">Add to Cart</a>
         </div>
 
 

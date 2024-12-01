@@ -24,7 +24,7 @@
                 <span class="navbar-text fs-6 fw-bold" style="color: #f3156b">
                     Welcome,
                 </span>
-                <li class="nav-item text-primary me-5 fs-5 fw-bold"><?= $_SESSION['loggedInUser']['FName'] ?>
+                <li class="nav-item text-info me-5 fw-bold"><?= $_SESSION['loggedInUser']['FName'] ?>
                 </li>
                 <li class="nav-item d-none d-lg-block ms-auto">
                     <button id="cartButton" class="btn fw-bold 

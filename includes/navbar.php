@@ -14,15 +14,15 @@
         <div class="collapse navbar-collapse" id="main-nav">
             <ul class="navbar-nav column-gap-2 me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                    <a href="index.php" class="nav-link <?= $currentPage == 'index.php' ? 'active' : '' ?>" aria-current="page">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Menu</a>
+                    <a href="menu-guest.php" class="nav-link <?= $currentPage == 'menu-guest.php' ? 'active' : '' ?>">Menu</a>
                 </li>
             </ul>
         </div>
         <div class="d-none d-lg-block ms-auto">
-            <a href="login.php" class="btn <?= $currentPage == 'login.php' ? 'gone' : '' ?>" href="orders.php">Login</a>
+            <a href="login.php" class="btn <?= ($currentPage == 'login.php') || ($currentPage == 'signup.php') ? 'gone' : '' ?>" href="orders.php">Login</a>
         </div>
     </div>
 </nav>

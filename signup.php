@@ -54,7 +54,7 @@
         </div>
         <div class="gotta-login">
           <span> Already have an account? </span>
-          <a href="Login.php">Login</a>
+          <a href="login.php">Login</a>
         </div>
     </div>
     </form>

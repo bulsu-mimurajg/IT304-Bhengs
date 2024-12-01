@@ -40,7 +40,7 @@ if (isset($_POST['register'])) {
 
         $result = insert('customer', $dataToInsert);
         if ($result) {
-            redirect('login.php', 'Customer succesfully created.');
+            redirect('login.php', 'Account succesfully created.');
         } else {
             redirect('signup.php', 'Something went wrong...');
         }
