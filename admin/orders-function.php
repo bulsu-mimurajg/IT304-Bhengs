@@ -121,7 +121,7 @@ if (isset($_POST['saveOrder'])) {
                     'InvoiceNo' => $invoiceNo,
                     'TotalPrice' => $totalPrice,
                     'OrderDate' => date('Y-m-d'),
-                    'OrderStatus' => 'pending',
+                    'OrderStatus' => 'Pending',
                     'PaymentMode' => $paymentMode
                 ];
                 $result = insert('orders', $data);
