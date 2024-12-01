@@ -45,8 +45,10 @@
                   <td>PHP <?= number_format($item['TotalPrice'], 0) ?></td>
                   <td><?= $item['OrderStatus'] ?></td>
                   <td>
-                    <a href="orders-cancel.php?id=<?= $item['TrackingNo'] ?>" class="btn btn-sm"
-                      onclick="return confirm('Cancel this order?')">Cancel Order</a>
+                    <?php if ($item['OrderStatus'] !== 'Delivered') : ?>
+                      <a href="orders-cancel.php?id=<?= $item['TrackingNo'] ?>" class="btn btn-sm"
+                        onclick="return confirm('Cancel this order?')">Cancel Order</a>
+                    <?php endif; ?>
                     <a href="orders-view.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-sm">View</a>
                     <a href="orders-view-print.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-sm">Print</a>
                   </td>
