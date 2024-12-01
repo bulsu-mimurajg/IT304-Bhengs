@@ -1,0 +1,15 @@
+body{
+    background-color: #1a1a1a;
+}
+
+.container-fluid {
+    margin-top: 8rem;
+}
+
+.print{
+    color: black;
+}
+
+.print:hover{
+    background-color: #ffc107;
+}
