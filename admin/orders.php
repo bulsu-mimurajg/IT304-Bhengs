@@ -43,8 +43,12 @@
                                         <td><?= $item['OrderStatus'] ?></td>
                                         <td><?= $item['PaymentMode'] ?></td>
                                         <td>
+                                            <a href="orders-cancel.php?id=<?= $item['TrackingNo'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Cancel this order?')">Cancel</a>
                                             <a href="orders-view.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-info btn-sm">View</a>
-                                            <a href="orders-view-print.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-danger btn-sm">Print</a>
+                                            <a href="orders-status.php?id=<?= $item['TrackingNo'] ?>&action=toggle_status" class="btn <?= $item['OrderStatus'] == 'Delivered' ? 'btn-warning' : 'btn-success' ?> btn-sm">
+                                                <?= $item['OrderStatus'] == 'Delivered' ? 'Mark as Pending' : 'Mark as Delivered' ?>
+                                            </a>
+                                            <a href="orders-view-print.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-secondary btn-sm">Print</a>
                                         </td>
                                     </tr>
                                 <?php
