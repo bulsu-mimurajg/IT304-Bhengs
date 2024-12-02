@@ -137,17 +137,30 @@ foreach ($default_data as $table_name => $rows) {
         $values = implode("', '", array_map(function ($value) use ($conn) {
             return mysqli_real_escape_string($conn, $value);
         }, array_values($row)));
-        $insert_query = "INSERT INTO `$table_name` ($columns) VALUES ('$values')";
 
-        // Check if data already exists
-        $conditions = array_map(function ($column, $value) use ($conn) {
-            return "$column = '" . mysqli_real_escape_string($conn, $value) . "'";
-        }, array_keys($row), $row);
-        $check_query = "SELECT * FROM `$table_name` WHERE " . implode(" AND ", $conditions);
+        // Define a unique key for each table
+        $unique_keys = [
+            "customer" => "Email",
+            "product_category" => "CategoryName",
+            "product" => "ProductName"
+        ];
 
-        $check_result = mysqli_query($conn, $check_query);
+        if (isset($unique_keys[$table_name])) {
+            $unique_key = $unique_keys[$table_name];
+            $unique_value = mysqli_real_escape_string($conn, $row[$unique_key]);
 
-        if (mysqli_num_rows($check_result) == 0) {
+            // Check if the record exists based on the unique key
+            $check_query = "SELECT * FROM `$table_name` WHERE `$unique_key` = '$unique_value'";
+            $check_result = mysqli_query($conn, $check_query);
+
+            if (mysqli_num_rows($check_result) == 0) {
+                // Insert the data if it doesn't already exist
+                $insert_query = "INSERT INTO `$table_name` ($columns) VALUES ('$values')";
+                mysqli_query($conn, $insert_query);
+            }
+        } else {
+            // If no unique key is defined for the table, insert without checking
+            $insert_query = "INSERT INTO `$table_name` ($columns) VALUES ('$values')";
             mysqli_query($conn, $insert_query);
         }
     }
