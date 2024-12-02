@@ -4,12 +4,13 @@ $paymentMode = $_SESSION['payment_mode'] ?? 'Not specified';
 $invoiceNo = $_SESSION['invoice_no'];
 ?>
 
+<link rel="stylesheet" href="assets/css/menu.css">
+
 <div class="modal" tabindex="-1" id="orderSuccess" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Order Placed</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>Thank you for ordering!</p>
@@ -22,8 +23,7 @@ $invoiceNo = $_SESSION['invoice_no'];
     </div>
 </div>
 
-<div class=" container-fluid px-4">
-    <h1 class="mt-3">Order Summary</h1>
+<div class=" container-fluid px-4" style="margin-top: 7rem;">
     <div class="row">
         <div class="col-md-12">
             <div class="card mt-5 shadow">

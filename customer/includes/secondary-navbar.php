@@ -19,6 +19,9 @@
                     <li class="nav-item">
                         <a class="nav-link mx-2 px-3 btn <?= $currentPage == 'menu-filipino.php' ? 'active' : '' ?>" href="menu-filipino.php">Filipino</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 px-3 btn <?= $currentPage == 'menu-specials.php' ? 'active' : '' ?>" href="menu-specials.php">Specials</a>
+                    </li>
                 </ul>
             </div>
             <button class="btn btn-danger ms-md-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">

@@ -12,7 +12,8 @@
                 <div class="card-body">
                     <div class="row row-cols-4 justify-content-center">
                         <?php
-                        $query = "SELECT p.* FROM product p JOIN product_category pc ON p.CategoryID = pc.CategoryID WHERE pc.CategoryName = 'Filipino';";
+                        $query = "SELECT p.* FROM product p JOIN product_category pc ON p.CategoryID = pc.CategoryID WHERE pc.CategoryName LIKE '%specials%';
+                    ";
                         $menu = mysqli_query($conn, $query);
                         if ($menu) {
                             if (mysqli_num_rows($menu) > 0) {

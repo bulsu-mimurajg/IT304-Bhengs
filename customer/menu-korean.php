@@ -12,7 +12,8 @@
                 <div class="card-body">
                     <div class="row row-cols-4 justify-content-center">
                         <?php
-                        $query = "SELECT p.* FROM product p JOIN product_category pc ON p.CategoryID = pc.CategoryID WHERE pc.CategoryName != 'Filipino';";
+                        $query = "SELECT p.* FROM product p JOIN product_category pc ON p.CategoryID = pc.CategoryID WHERE pc.CategoryName LIKE '%family%';
+                    ";
                         $menu = mysqli_query($conn, $query);
                         if ($menu) {
                             if (mysqli_num_rows($menu) > 0) {
@@ -20,7 +21,7 @@
                         ?>
                                     <div class="col d-flex align-items-stretch mt-5 text-center">
                                         <div class="card">
-                                            <img src="..<?= $item['ProductImage'] ?>" class="card-img-top img-fluid" height="100" alt="<?= $item['ProductName'] ?>">
+                                            <img src="../<?= $item['ProductImage'] ?>" class="card-img-top img-fluid" height="100" alt="<?= $item['ProductName'] ?>">
                                             <div class="card-body d-flex flex-column">
                                                 <h5 class="card-title"><?= $item['ProductName'] ?></h5>
                                                 <p class="card-text">₱ <?= $item['Price'] ?></p>
@@ -28,7 +29,7 @@
                                                     data-product-id="<?= $item['ProductID'] ?>"
                                                     data-product-name="<?= $item['ProductName'] ?>"
                                                     data-product-price="<?= $item['Price'] ?>"
-                                                    data-product-image="..<?= $item['ProductImage'] ?>">Add to Cart</a>
+                                                    data-product-image="../<?= $item['ProductImage'] ?>">Add to Cart</a>
                                             </div>
                                         </div>
                                     </div>
