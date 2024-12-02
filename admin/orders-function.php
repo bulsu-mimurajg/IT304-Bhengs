@@ -75,7 +75,7 @@ if (isset($_POST['productIncDec'])) {
     }
 }
 
-if (isset($_POST['placeOrderBtn'])) {
+if (isset($_POST['placeOrder'])) {
     $phone = validate($_POST['phone']);
     $paymentMode = validate($_POST['paymentMode']);
 

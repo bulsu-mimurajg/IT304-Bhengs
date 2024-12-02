@@ -27,10 +27,6 @@
                 <li class="nav-item text-info me-5 fw-bold"><?= $_SESSION['loggedInUser']['FName'] ?>
                 </li>
                 <li class="nav-item d-none d-lg-block ms-auto">
-                    <button id="cartButton" class="btn fw-bold 
-                    <?= ($currentPage == 'menu-all.php') || ($currentPage == 'menu-korean.php') || ($currentPage == 'menu-filipino.php') ? '' : 'd-none' ?>"><i class="ri-shopping-cart-line"></i></button>
-                </li>
-                <li class="nav-item d-none d-lg-block ms-auto">
                     <a href="user-info.php" class="btn fw-bold"><i class="ri-user-line"></i></a>
                 </li>
             </ul>
