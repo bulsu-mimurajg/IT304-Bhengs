@@ -17,7 +17,7 @@
                     <a class="nav-link <?= $currentPage == 'index.php' ? 'active' : '' ?>" aria-current="page" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?= $currentPage == 'menu-all.php' ? 'active' : '' ?>" href="menu-all.php">Menu</a>
+                    <a class="nav-link <?= ($currentPage == 'menu-all.php') || ($currentPage == 'menu-korean.php') || ($currentPage == 'menu-filipino.php') || ($currentPage == 'menu-specials.php') ? 'active' : '' ?>" href="menu-all.php">Menu</a>
                 </li>
             </ul>
             <ul class="navbar-nav column-gap-2 ms-auto mb-2 mb-lg-0 justify-content-center align-items-center">
