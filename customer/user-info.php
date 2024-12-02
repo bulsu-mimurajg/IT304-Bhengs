@@ -9,6 +9,7 @@
 
     <div class="main-content">
         <div class="profile-container">
+            <?php alertMessage(); ?>
             <h2>Account Info</h2>
             <div class="details-container text-primary-emphasis mt-4">
                 <p><strong>First Name: </strong> <?= $_SESSION['loggedInUser']['FName'] ?></p>

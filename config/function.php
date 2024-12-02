@@ -177,3 +177,18 @@ function getCount($tableName)
         return 'Something went wrong.';
     }
 }
+
+function fetchSingle($table, $column, $value)
+{
+    global $conn;
+
+    $query = "SELECT * FROM $table WHERE $column = '$value'";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        return mysqli_fetch_assoc($result);
+    } else {
+        // Handle query error 
+        echo "Error: " . mysqli_error($conn);
+        return null;
+    }
+}
