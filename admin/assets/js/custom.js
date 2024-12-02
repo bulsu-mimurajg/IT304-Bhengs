@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return false;
             }
 
-            var data = 'placeOrderBtn=true&phone=' + phone + '&paymentMode=' + paymentMode;
+            var data = 'placeOrder=true&phone=' + phone + '&paymentMode=' + paymentMode;
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'orders-function.php', true);

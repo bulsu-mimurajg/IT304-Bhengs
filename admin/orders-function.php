@@ -75,7 +75,7 @@ if (isset($_POST['productIncDec'])) {
     }
 }
 
-if (isset($_POST['placeOrderBtn'])) {
+if (isset($_POST['placeOrder'])) {
     $phone = validate($_POST['phone']);
     $paymentMode = validate($_POST['paymentMode']);
 
@@ -121,7 +121,7 @@ if (isset($_POST['saveOrder'])) {
                     'InvoiceNo' => $invoiceNo,
                     'TotalPrice' => $totalPrice,
                     'OrderDate' => date('Y-m-d'),
-                    'OrderStatus' => 'pending',
+                    'OrderStatus' => 'Pending',
                     'PaymentMode' => $paymentMode
                 ];
                 $result = insert('orders', $data);

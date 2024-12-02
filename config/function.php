@@ -145,6 +145,12 @@ function delete($tableName, $columnName, $id)
     return $result;
 }
 
+function logoutSession()
+{
+    unset($_SESSION['loggedIn']);
+    unset($_SESSION['loggedInUser']);
+}
+
 function jResponse($status, $status_type, $message)
 {
     $response = [
@@ -169,5 +175,20 @@ function getCount($tableName)
         return $totalCount;
     } else {
         return 'Something went wrong.';
+    }
+}
+
+function fetchSingle($table, $column, $value)
+{
+    global $conn;
+
+    $query = "SELECT * FROM $table WHERE $column = '$value'";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        return mysqli_fetch_assoc($result);
+    } else {
+        // Handle query error 
+        echo "Error: " . mysqli_error($conn);
+        return null;
     }
 }

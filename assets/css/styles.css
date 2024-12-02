@@ -12,42 +12,9 @@
   --body-font: "Montserrat", sans-serif;
   --type-font: "Mr Dafoe", serif;
   --food-font: "Barlow", serif;
-  --biggest-font-size: 4rem;
-  --h1--font-size: 2.25rem;
-  --h2--font-size: 1.5rem;
-  --h3--font-size: 1.25rem;
-  --normal-font-size: 1rem;
-  --small-font-size: 0.875rem;
-  --smaller-font-size: 0.813rem;
-
-  /* Font Weight */
-  --font-bold: 600;
-  --font-medium: 500;
-
-  /* Z Index */
-  --z-fixed: 100;
-  --z-tooltip: 10;
 }
 
-/* Responsive typography */
-@media screen and (max-width: 992px) {
-  :root {
-    --biggest-font-size: 2rem;
-    --h1--font-size: 1.5rem;
-    --h2--font-size: 1.25rem;
-    --h3--font-size: 1rem;
-    --normal-font-size: 0.938rem;
-    --small-font-size: 0.813rem;
-    --smaller-font-size: 0.756rem;
-  }
-}
-
-/* BASE STYLES START */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ===== BASE STYLES ===== */
 
 html {
   scroll-behavior: smooth;
@@ -57,11 +24,10 @@ html {
 body {
   height: 100%;
   font-family: var(--body-font);
-  font-size: var(--normal-font-size);
+  font-size: 1rem;
 }
 
-/* BASE STYLES END */
-
+/* NAVBAR */
 .navbar {
   font-weight: var(--font-medium);
   font-size: 1.1rem;
@@ -93,7 +59,10 @@ body {
   transition: background-color 0.8s ease;
 }
 
+/* START MAIN */
+
 .parallax-section {
+  scroll-snap-align: start;
   position: relative;
   height: 100vh;
   overflow: hidden;
@@ -120,6 +89,24 @@ body {
     url("../img/2.jpg");
 }
 
+.parallax-2 {
+  background-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0)
+    ),
+    url("../img/1.jpg");
+}
+
+.parallax-3,.parallax-4{
+  background-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0)
+    ),
+    url("../img/footer.jpg");
+}
+
 .parallax-section-1 .content {
   position: relative;
   z-index: 1;
@@ -129,6 +116,300 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  padding: 2rem;
+  height: 100%; 
+  padding: 2rem; 
+}
+
+.parallax-section-1 .btn_order_now {
+  margin-top: 0.8rem; 
+}
+
+.display-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.type {
+  font-family: var(--type-font);
+  color: #f3156b;
+  font-size: 10rem;
+  z-index: 10;
+}
+
+.food {
+  font-family: var(--food-font);
+  color: #f6e7d8;
+  font-size: 9rem;
+  margin-top: -7rem;
+  margin-left: 15rem;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.kfood-list {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.kfood-list img{
+  width: auto;
+}
+
+.kfood-list p {
+ font-size: 10pt;
+}
+
+.kfood-list::-webkit-scrollbar,.ffood-list::-webkit-scrollbar{
+  height: 8px;
+}
+
+.kfood-list::-webkit-scrollbar-thumb, .ffood-list::-webkit-scrollbar {
+  background-color: #de1658;
+  border-radius: 4px;
+}
+
+.btn_order_now {
+  color: white;
+  background-color: #f3156b;
+  padding: 5px 20px;
+  border-radius: 20px;
+  outline: 2px solid #f3156b;
+  outline-offset: 3px;
+  margin-top: 30px;
+  font-size: small;
+}
+
+button:hover {
+  background-color: #d71958;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding-top: 20vh;
+  font-size: 2em;
+}
+
+.content h1 {
+  font-size: 40px;
+}
+
+.content p {
+  font-size: 20px;
+}
+
+.content .logo{
+  width: 50%;
+}
+
+.faq-section {
+  margin-top: 150px;
+  color: white;
+   position: relative;
+}
+
+.faq-section h1 {
+
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.faq {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.faq-header {
+  background-color: #f3156b;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 15px;
+  font-size: 18px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.faq-header:hover {
+  background-color: #d71958;
+}
+
+.faq-content {
+  display: none;
+  padding: 15px;
+  background-color:  #d7195850;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+} 
+
+.faq-content p {
+  margin: 0;
+}
+
+.content-2 {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  padding-top: 50vh;
+}
+
+.display-1 {
+  display: flex;
+  text-align: left;
+  column-gap: 3rem; 
+}
+
+.display-2 {
+  display: flex;
+  justify-content: center; 
+  line-height: -10.5;
+  text-align: left;
+  column-gap: 5rem;
+}
+.display-2 p{
+  font-size: 15px;
+}
+
+.display-2 a{
+  font-size: 15px;
+}
+
+.AboutRight {
+  font-family: Arial, sans-serif;
+  line-height: 1.6; 
+}
+
+.AboutRight h1 {
+  margin-bottom: 15px; 
+  font-size: 30px;
+}
+.AboutLeft h1 {
+  margin-bottom: 15px; 
+  font-size: 30px;
+}
+
+.AboutRight a {
+  display: block; 
+  text-decoration: none; 
+  margin-bottom: 10px; 
+}
+
+.AboutRight a i {
+  margin-right: 8px; 
+}
+
+
+
+.display-3 hr{
+  width: 30%;
+  text-align: center;
+}
+
+.display-3 {
+  display: flex;
+  justify-content: center; 
+  text-align: center;
+}
+
+.display-3 hr {
+  margin-top: 3px;
+}
+
+.display-4 hr{
+  width: 70%;
+}
+
+.display-4 {
+  display: flex;
+  justify-content: center; 
+  text-align: center;
+}
+
+.AboutRight{
+  display: block;
+}
+
+.copyright {
+  margin-top: -30px;
+}
+
+.displayforI {
+  display: flex;
+  justify-content: left; 
+  gap: 1rem;
+  justify-content: center;
+}
+
+.displayforI i{
+  font-size: 25px;
+ 
+}
+
+.displayforI a:hover {
+  text-decoration: none;
+}
+
+
+.type {
+  animation: bounce 2s infinite; 
+}
+
+
+.food {
+  color: #f6e7d8;
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease, color 0.3s ease; 
+}
+
+
+.food:hover {
+  transform: scale(1.2) rotate(-5deg); 
+  color: #d71958; 
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); 
+  }
+}
+
+.gone{
+  display: none;
+}
+
+.pictbox {
+  width: 300px; 
+  height: 300px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.kfood-list img {
+  width: 100%; 
+  height: auto; 
+  object-fit: contain;
+}
+
+.product {
+  margin: 5px; 
 }

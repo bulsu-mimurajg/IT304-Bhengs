@@ -1,0 +1,411 @@
+/* ===== GOOGLE FONTS ===== */
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mr+Dafoe&display=swap");
+
+/* ===== VARIABLES =====*/
+:root {
+  /* Colors */
+  --logo-color: hsl(335, 82%, 51%);
+  --first-color: #f3156b;
+  --second-color: #ff6ba4;
+
+  /* Font and typography */
+  --body-font: "Montserrat", sans-serif;
+  --type-font: "Mr Dafoe", serif;
+  --food-font: "Barlow", serif;
+}
+
+/* ===== BASE STYLES ===== */
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--body-font);
+}
+
+body {
+  height: 100%;
+  font-family: var(--body-font);
+  font-size: 1rem;
+}
+
+/* NAVBAR */
+.navbar {
+  font-weight: var(--font-medium);
+  font-size: 1.1rem;
+}
+
+.navbar-nav .nav-link.active {
+  color: var(--first-color);
+}
+
+.nav-link {
+  color: rgb(255, 200, 200);
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--second-color);
+}
+
+.btn {
+  color: var(--first-color);
+  background-color: white;
+  border-radius: 20px;
+  /* padding: 6px 20px; */
+  font-weight: var(--font-medium);
+}
+
+.btn:hover {
+  color: white;
+  background-color: var(--first-color);
+  transition: background-color 0.8s ease;
+}
+
+/* START MAIN */
+
+.parallax-section {
+  scroll-snap-align: start;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.parallax {
+  height: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.parallax-1 {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0)
+    ),
+    url("../img/2.jpg");
+}
+
+.parallax-2 {
+  background-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0)
+    ),
+    url("../img/1.jpg");
+}
+
+.parallax-3,.parallax-4{
+  background-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0)
+    ),
+    url("../img/footer.jpg");
+}
+
+.parallax-section-1 .content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%; 
+  padding: 2rem; 
+}
+
+.parallax-section-1 .btn_order_now {
+  margin-top: 0.8rem; 
+}
+
+.display-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.type {
+  font-family: var(--type-font);
+  color: #f3156b;
+  font-size: 10rem;
+  z-index: 10;
+}
+
+.food {
+  font-family: var(--food-font);
+  color: #f6e7d8;
+  font-size: 9rem;
+  margin-top: -7rem;
+  margin-left: 15rem;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.kfood-list {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.kfood-list img{
+  width: auto;
+}
+
+.kfood-list p {
+ font-size: 10pt;
+}
+
+.kfood-list::-webkit-scrollbar,.ffood-list::-webkit-scrollbar{
+  height: 8px;
+}
+
+.kfood-list::-webkit-scrollbar-thumb, .ffood-list::-webkit-scrollbar {
+  background-color: #de1658;
+  border-radius: 4px;
+}
+
+.btn_order_now {
+  color: white;
+  background-color: #f3156b;
+  padding: 5px 20px;
+  border-radius: 20px;
+  outline: 2px solid #f3156b;
+  outline-offset: 3px;
+  margin-top: 30px;
+  font-size: small;
+}
+
+button:hover {
+  background-color: #d71958;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding-top: 20vh;
+  font-size: 2em;
+}
+
+.content h1 {
+  font-size: 40px;
+}
+
+.content p {
+  font-size: 20px;
+}
+
+.content .logo{
+  width: 50%;
+}
+
+.faq-section {
+  margin-top: 150px;
+  color: white;
+   position: relative;
+}
+
+.faq-section h1 {
+
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.faq {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.faq-header {
+  background-color: #f3156b;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 15px;
+  font-size: 18px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.faq-header:hover {
+  background-color: #d71958;
+}
+
+.faq-content {
+  display: none;
+  padding: 15px;
+  background-color:  #d7195850;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+} 
+
+.faq-content p {
+  margin: 0;
+}
+
+.content-2 {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  padding-top: 50vh;
+}
+
+.display-1 {
+  display: flex;
+  text-align: left;
+  column-gap: 3rem; 
+}
+
+.display-2 {
+  display: flex;
+  justify-content: center; 
+  line-height: -10.5;
+  text-align: left;
+  column-gap: 5rem;
+}
+.display-2 p{
+  font-size: 15px;
+}
+
+.display-2 a{
+  font-size: 15px;
+}
+
+.AboutRight {
+  font-family: Arial, sans-serif;
+  line-height: 1.6; 
+}
+
+.AboutRight h1 {
+  margin-bottom: 15px; 
+  font-size: 30px;
+}
+.AboutLeft h1 {
+  margin-bottom: 15px; 
+  font-size: 30px;
+}
+
+.AboutRight a {
+  display: block; 
+  text-decoration: none; 
+  margin-bottom: 10px; 
+}
+
+.AboutRight a i {
+  margin-right: 8px; 
+}
+
+
+
+.display-3 hr{
+  width: 30%;
+  text-align: center;
+}
+
+.display-3 {
+  display: flex;
+  justify-content: center; 
+  text-align: center;
+}
+
+.display-3 hr {
+  margin-top: 3px;
+}
+
+.display-4 hr{
+  width: 70%;
+}
+
+.display-4 {
+  display: flex;
+  justify-content: center; 
+  text-align: center;
+}
+
+.AboutRight{
+  display: block;
+}
+
+.copyright {
+  margin-top: -30px;
+}
+
+.displayforI {
+  display: flex;
+  justify-content: left; 
+  gap: 1rem;
+  justify-content: center;
+}
+
+.displayforI i{
+  font-size: 25px;
+ 
+}
+
+.displayforI a:hover {
+  text-decoration: none;
+}
+
+
+.type {
+  animation: bounce 2s infinite; 
+}
+
+
+.food {
+  color: #f6e7d8;
+  position: relative;
+  display: inline-block;
+  transition: transform 0.3s ease, color 0.3s ease; 
+}
+
+
+.food:hover {
+  transform: scale(1.2) rotate(-5deg); 
+  color: #d71958; 
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); 
+  }
+}
+
+.pictbox {
+  width: 300px; 
+  height: 300px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.kfood-list img {
+  width: 100%; 
+  height: auto; 
+  object-fit: contain;
+}
+
+.product {
+  margin: 5px; 
+}

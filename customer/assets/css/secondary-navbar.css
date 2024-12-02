@@ -1,0 +1,31 @@
+.second .navbar-nav .nav-link.active {
+color: white;
+background-color: #f3156b;
+}
+
+.second .navbar-nav .nav-link.active:hover {
+    background-color: #f3156aab;
+    transition: background-color 0.8s ease;
+}
+
+.second .nav-link {
+color: white;
+}
+
+.second .navbar-nav .nav-link:hover {
+color: white;
+}
+
+.second .btn {
+color: #f3156b;
+/* background-color: white; */
+border-radius: 20px;
+/* padding: 6px 20px; */
+font-weight: var(--font-medium);
+}
+
+.second .btn:hover {
+color: white;
+background-color: #f3156b;
+transition: background-color 0.8s ease;
+}
