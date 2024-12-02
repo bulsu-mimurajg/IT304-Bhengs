@@ -29,7 +29,7 @@ if (isset($_POST['loginBtn'])) {
                     'Phone' => $row['Phone'],
                 ];
 
-                redirect('customer/index.php', 'Logged In Successfully.');
+                header('Location: customer/index.php');
             } else {
                 redirect('login.php', 'Username or password is incorrect.');
             }
