@@ -77,7 +77,7 @@
             <div class="card bg-info">
                 <div class="card-body">
                     <h4 class="card-title">Total Sales</h4>
-                    <div class="card-text">PHP <?= number_format($totalSales) ?> </div>
+                    <div class="card-text">PHP <?= isset($totalSales) ? number_format($totalSales) : 0 ?> </div>
                 </div>
             </div>
 
