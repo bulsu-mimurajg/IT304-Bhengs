@@ -22,7 +22,7 @@
             </ul>
         </div>
         <div class="d-none d-lg-block ms-auto">
-            <a href="login.php" class="btn <?= ($currentPage == 'login.php') || ($currentPage == 'signup.php') ? 'gone' : '' ?>" href="orders.php">Login</a>
+            <a href="login.php" class="btn <?= ($currentPage == 'login.php') || ($currentPage == 'signup.php') || ($currentPage == 'forgot-password.php') ? 'gone' : '' ?>" href="orders.php">Login</a>
         </div>
     </div>
 </nav>
