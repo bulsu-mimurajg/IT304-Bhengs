@@ -14,10 +14,10 @@
                         <a class="nav-link mx-2 px-5 btn <?= $currentPage == 'menu-all.php' ? 'active' : '' ?>" href="menu-all.php">All</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2 px-3 btn <?= $currentPage == 'menu-korean.php' ? 'active' : '' ?>" href="#">Korean</a>
+                        <a class="nav-link mx-2 px-3 btn <?= $currentPage == 'menu-korean.php' ? 'active' : '' ?>" href="menu-korean.php">Korean</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2 px-3 btn <?= $currentPage == 'menu-filipino.php' ? 'active' : '' ?>" href="#">Filipino</a>
+                        <a class="nav-link mx-2 px-3 btn <?= $currentPage == 'menu-filipino.php' ? 'active' : '' ?>" href="menu-filipino.php">Filipino</a>
                     </li>
                 </ul>
             </div>
