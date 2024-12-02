@@ -61,12 +61,6 @@ body {
 
 /* START MAIN */
 
-.scroll-container {
-  scroll-snap-type: y mandatory;
-  /* overflow-y: scroll; */
-  height: 100vh;
-}
-
 .parallax-section {
   scroll-snap-align: start;
   position: relative;
@@ -395,4 +389,23 @@ button:hover {
   50% {
     transform: translateY(-10px); 
   }
+}
+
+.pictbox {
+  width: 300px; 
+  height: 300px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.kfood-list img {
+  width: 100%; 
+  height: auto; 
+  object-fit: contain;
+}
+
+.product {
+  margin: 5px; 
 }
