@@ -12,6 +12,7 @@ if (!$conn) {
     die("Connection to MySQL server failed! " . mysqli_connect_error());
 }
 
+
 // Check if the database exists, and create it if not
 $db_check_query = "SHOW DATABASES LIKE '" . DB_DATABASE . "'";
 $db_check_result = mysqli_query($conn, $db_check_query);
@@ -20,6 +21,7 @@ if (mysqli_num_rows($db_check_result) == 0) {
     $create_db_query = "CREATE DATABASE " . DB_DATABASE;
     if (mysqli_query($conn, $create_db_query)) {
         echo "Database '" . DB_DATABASE . "' created successfully.\n";
+        unset($_SESSION['default_data_inserted']);
     } else {
         die("Error creating database: " . mysqli_error($conn));
     }
@@ -156,68 +158,74 @@ foreach ($alterQueries as $alter) {
 
 
 // Insert default data
-$default_data = [
-    "customer" => [
-        ["FName" => 'Jaden', "LName" => "Mimura", "Address" => "123 Main St, Cityville", "Email" => "vioaescode@gmail.com", "Phone" => "123-456-7890", "Password" => password_hash('asd', PASSWORD_DEFAULT)],
-    ],
-    "product_category" => [
-        ["CategoryName" => "Kimchi Family", "CategoryDescription" => "Kimchi 4 Life"],
-        ["CategoryName" => "Kimbap Family", "CategoryDescription" => "Kimbap Bops"],
-        ["CategoryName" => "Homemade Specials", "CategoryDescription" => "Freshly Made"],
-        ["CategoryName" => "Filipino", "CategoryDescription" => "Filipino Classics"],
-    ],
-    "product" => [
-        ["ProductName" => "Radish Kimchi", "Price" => 80, "Quantity" => 100, "ProductImage" => "assets/img/radishkimchi.jpg", "CategoryID" => 1],
-        ["ProductName" => "Napa Kimchi", "Price" => 80, "Quantity" => 100, "ProductImage" => "assets/img/napa.jpg", "CategoryID" => 1],
-        ["ProductName" => "Kimchi Sauce", "Price" => 80, "Quantity" => 100, "ProductImage" => "assets/img/sauce.jpg", "CategoryID" => 1],
-        ["ProductName" => "Kimchi Rice", "Price" => 40, "Quantity" => 100, "ProductImage" => "assets/img/rice.jpg", "CategoryID" => 1],
-        ["ProductName" => "Kimchi Ramen", "Price" => 150, "Quantity" => 100, "ProductImage" => "assets/img/ramen.jpg", "CategoryID" => 1],
-        ["ProductName" => "Regular Kimbap", "Price" => 140, "Quantity" => 100, "ProductImage" => "assets/img/kimbap.jpg", "CategoryID" => 2],
-        ["ProductName" => "Kimchi Kimbap", "Price" => 140, "Quantity" => 100, "ProductImage" => "assets/img/kimchibap.jpg", "CategoryID" => 2],
-        ["ProductName" => "Pork", "Price" => 220, "Quantity" => 100, "ProductImage" => "assets/img/pork.png", "CategoryID" => 3],
-        ["ProductName" => "Beef", "Price" => 235, "Quantity" => 100, "ProductImage" => "assets/img/beef.jpg", "CategoryID" => 3],
-        ["ProductName" => "Palabok", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/palabok.jpg", "CategoryID" => 4],
-        ["ProductName" => "Pansit", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/pansit.jpg", "CategoryID" => 4],
-        ["ProductName" => "Malabon", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/malabon.jpg", "CategoryID" => 4],
-        ["ProductName" => "Maja", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/maja.jpg", "CategoryID" => 4],
-        ["ProductName" => "Sapin-sapin", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/sapin.jpg", "CategoryID" => 4],
-        ["ProductName" => "Pichi-pichi", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/pichi.jpg", "CategoryID" => 4],
-        ["ProductName" => "Palitaw", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/palitaw.jpg", "CategoryID" => 4]
-    ]
-];
+if (!isset($_SESSION['default_data_inserted']) || $_SESSION['default_data_inserted'] !== true) {
+    // Insert default data
+    $default_data = [
+        "customer" => [
+            ["FName" => 'Jaden', "LName" => "Mimura", "Address" => "123 Main St, Cityville", "Email" => "vioaescode@gmail.com", "Phone" => "123-456-7890", "Password" => password_hash('asd', PASSWORD_DEFAULT)],
+        ],
+        "product_category" => [
+            ["CategoryName" => "Kimchi Family", "CategoryDescription" => "Kimchi 4 Life"],
+            ["CategoryName" => "Kimbap Family", "CategoryDescription" => "Kimbap Bops"],
+            ["CategoryName" => "Homemade Specials", "CategoryDescription" => "Freshly Made"],
+            ["CategoryName" => "Filipino", "CategoryDescription" => "Filipino Classics"],
+        ],
+        "product" => [
+            ["ProductName" => "Radish Kimchi", "Price" => 80, "Quantity" => 100, "ProductImage" => "assets/img/radishkimchi.jpg", "CategoryID" => 1],
+            ["ProductName" => "Napa Kimchi", "Price" => 80, "Quantity" => 100, "ProductImage" => "assets/img/napa.jpg", "CategoryID" => 1],
+            ["ProductName" => "Kimchi Sauce", "Price" => 80, "Quantity" => 100, "ProductImage" => "assets/img/sauce.jpg", "CategoryID" => 1],
+            ["ProductName" => "Kimchi Rice", "Price" => 40, "Quantity" => 100, "ProductImage" => "assets/img/rice.jpg", "CategoryID" => 1],
+            ["ProductName" => "Kimchi Ramen", "Price" => 150, "Quantity" => 100, "ProductImage" => "assets/img/ramen.jpg", "CategoryID" => 1],
+            ["ProductName" => "Regular Kimbap", "Price" => 140, "Quantity" => 100, "ProductImage" => "assets/img/kimbap.jpg", "CategoryID" => 2],
+            ["ProductName" => "Kimchi Kimbap", "Price" => 140, "Quantity" => 100, "ProductImage" => "assets/img/kimchibap.jpg", "CategoryID" => 2],
+            ["ProductName" => "Pork", "Price" => 220, "Quantity" => 100, "ProductImage" => "assets/img/pork.png", "CategoryID" => 3],
+            ["ProductName" => "Beef", "Price" => 235, "Quantity" => 100, "ProductImage" => "assets/img/beef.jpg", "CategoryID" => 3],
+            ["ProductName" => "Palabok", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/palabok.jpg", "CategoryID" => 4],
+            ["ProductName" => "Pansit", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/pansit.jpg", "CategoryID" => 4],
+            ["ProductName" => "Malabon", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/malabon.jpg", "CategoryID" => 4],
+            ["ProductName" => "Maja", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/maja.jpg", "CategoryID" => 4],
+            ["ProductName" => "Sapin-sapin", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/sapin.jpg", "CategoryID" => 4],
+            ["ProductName" => "Pichi-pichi", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/pichi.jpg", "CategoryID" => 4],
+            ["ProductName" => "Palitaw", "Price" => 280, "Quantity" => 100, "ProductImage" => "assets/img/palitaw.jpg", "CategoryID" => 4]
+        ]
+    ];
 
-foreach ($default_data as $table_name => $rows) {
-    foreach ($rows as $row) {
-        // Prepare the INSERT query dynamically
-        $columns = implode(", ", array_keys($row));
-        $values = implode("', '", array_map(function ($value) use ($conn) {
-            return mysqli_real_escape_string($conn, $value);
-        }, array_values($row)));
+    foreach ($default_data as $table_name => $rows) {
+        foreach ($rows as $row) {
+            // Prepare the INSERT query dynamically
+            $columns = implode(", ", array_keys($row));
+            $values = implode("', '", array_map(function ($value) use ($conn) {
+                return mysqli_real_escape_string($conn, $value);
+            }, array_values($row)));
 
-        // Define a unique key for each table
-        $unique_keys = [
-            "customer" => "Email",
-            "product_category" => "CategoryName",
-            "product" => "ProductName"
-        ];
+            // Define a unique key for each table
+            $unique_keys = [
+                "customer" => "Email",
+                "product_category" => "CategoryName",
+                "product" => "ProductName"
+            ];
 
-        if (isset($unique_keys[$table_name])) {
-            $unique_key = $unique_keys[$table_name];
-            $unique_value = mysqli_real_escape_string($conn, $row[$unique_key]);
+            if (isset($unique_keys[$table_name])) {
+                $unique_key = $unique_keys[$table_name];
+                $unique_value = mysqli_real_escape_string($conn, $row[$unique_key]);
 
-            // Check if the record exists based on the unique key
-            $check_query = "SELECT * FROM `$table_name` WHERE `$unique_key` = '$unique_value'";
-            $check_result = mysqli_query($conn, $check_query);
+                // Check if the record exists based on the unique key
+                $check_query = "SELECT * FROM `$table_name` WHERE `$unique_key` = '$unique_value'";
+                $check_result = mysqli_query($conn, $check_query);
 
-            if (mysqli_num_rows($check_result) == 0) {
-                // Insert the data if it doesn't already exist
+                if (mysqli_num_rows($check_result) == 0) {
+                    // Insert the data if it doesn't already exist
+                    $insert_query = "INSERT INTO `$table_name` ($columns) VALUES ('$values')";
+                    mysqli_query($conn, $insert_query);
+                }
+            } else {
+                // If no unique key is defined for the table, insert without checking
                 $insert_query = "INSERT INTO `$table_name` ($columns) VALUES ('$values')";
                 mysqli_query($conn, $insert_query);
             }
-        } else {
-            // If no unique key is defined for the table, insert without checking
-            $insert_query = "INSERT INTO `$table_name` ($columns) VALUES ('$values')";
-            mysqli_query($conn, $insert_query);
         }
     }
+
+    // Set the session variable to indicate that the default data has been inserted
+    $_SESSION['default_data_inserted'] = true;
 }
