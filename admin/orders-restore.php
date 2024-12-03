@@ -19,16 +19,16 @@ if (isset($_GET['id'])) {
                         $productId = $item['ProductID'];
                         $quantity = $item['Quantity'];
 
-                        // Update the product stock
-                        $updateStockQuery = "UPDATE product SET Quantity = Quantity + $quantity WHERE ProductID = $productId";
+                        // Subtract the order quantity from the product stock
+                        $updateStockQuery = "UPDATE product SET Quantity = Quantity - $quantity WHERE ProductID = $productId";
                         mysqli_query($conn, $updateStockQuery);
                     }
                 }
 
-                // Update the order status to cancelled
-                $updateOrderStatusQuery = "UPDATE orders SET OrderStatus = 'Cancelled' WHERE TrackingNo = $id";
+                // Update the order status to pending
+                $updateOrderStatusQuery = "UPDATE orders SET OrderStatus = 'Pending' WHERE TrackingNo = $id";
                 if (mysqli_query($conn, $updateOrderStatusQuery)) {
-                    redirect('orders.php', 'Order status updated to cancelled.');
+                    redirect('orders.php', 'Order status updated to pending.');
                 } else {
                     redirect('orders.php', 'Something went wrong while updating the order status.');
                 }

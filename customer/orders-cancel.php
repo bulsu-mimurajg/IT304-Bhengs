@@ -25,12 +25,12 @@ if (isset($_GET['id'])) {
                     }
                 }
 
-                // Delete the order
-                $orderDelete = delete('orders', 'TrackingNo', $id);
-                if ($orderDelete) {
-                    redirect('orders.php', 'Order cancelled.');
+                // Update the order status to cancelled
+                $updateOrderStatusQuery = "UPDATE orders SET OrderStatus = 'Cancelled' WHERE TrackingNo = $id";
+                if (mysqli_query($conn, $updateOrderStatusQuery)) {
+                    redirect('orders.php', 'Order status updated to cancelled.');
                 } else {
-                    redirect('orders.php', 'Something went wrong while deleting the order.');
+                    redirect('orders.php', 'Something went wrong while updating the order status.');
                 }
             } else {
                 redirect('orders.php', 'Order not found.');

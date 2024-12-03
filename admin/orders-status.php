@@ -9,7 +9,7 @@ if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'toggle_s
         if ($order['status'] == 200) {
             $currentStatus = $order['data']['OrderStatus'];
 
-            $newStatus = ($currentStatus == 'Delivered') ? 'Pending' : 'Delivered';
+            $newStatus = ($currentStatus == 'Completed') ? 'Pending' : 'Completed';
 
             $updateQuery = "UPDATE orders SET OrderStatus = '$newStatus' WHERE TrackingNo = $id";
             if (mysqli_query($conn, $updateQuery)) {
