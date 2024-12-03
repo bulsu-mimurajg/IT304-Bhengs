@@ -37,18 +37,55 @@ try {
     }
 
     // Handle order saving from "saveOrder"
+
     if (!empty($input['saveOrder'])) {
         if (empty($_SESSION['cart'])) {
             echo json_encode(['status' => 400, 'message' => 'Cart is empty.']);
             exit;
         }
 
+        if (!isset($input['receipt'])) {
+            echo json_encode(['status' => 400, 'message' => 'Receipt content is missing.']);
+            exit;
+        }
+
+        $receiptContent = ($input['receipt']);
+
         $sessionProducts = $_SESSION['cart'];
         $totalPrice = 0;
+        $insufficientStock = false;
 
-        // Calculate total price
+        // Check stock for each product before proceeding
         foreach ($sessionProducts as $item) {
-            $totalPrice += $item['price'] * $item['quantity'];
+            $checkQuantity = mysqli_query($conn, "SELECT ProductName, Quantity FROM product WHERE ProductID='{$item['id']}'");
+            $productQuantity = mysqli_fetch_assoc($checkQuantity);
+
+            if ($productQuantity['Quantity'] <= 25) {
+                $query = "SELECT Email FROM customer WHERE CustomerID = 1";
+
+                $result = mysqli_query($conn, $query);
+                if ($result) {
+                    $customer = mysqli_fetch_assoc($result);
+                    $adminEmail = $customer['Email'];
+                    $message = $productQuantity['ProductName'] . ' stock is getting below <b>25</b>';
+                    mailToUser($adminEmail, "Low Stock Level", $message);
+                } else {
+                    echo "Error: " . mysqli_error($conn);
+                }
+
+                if ($productQuantity['Quantity'] < $item['quantity']) {
+                    $insufficientStock = true;
+                    $productId = $item['id'];
+                    break;
+                }
+
+                $totalPrice += $item['price'] * $item['quantity'];
+            }
+        }
+
+        if ($insufficientStock) {
+            echo json_encode(['status' => 400, 'message' => "Not enough stock for product ID: $productId"]);
+            exit;
         }
 
         // Insert order data
@@ -64,12 +101,13 @@ try {
         $result = insert('orders', $data);
         $lastOrderId = mysqli_insert_id($conn);
 
-        // Insert order items
+        // Insert order items and update stock after order is successfully inserted
         foreach ($sessionProducts as $item) {
             $productId = $item['id'];
             $price = $item['price'];
             $quantity = $item['quantity'];
 
+            // Insert order item
             $dataOrderItem = [
                 'OrderID' => $lastOrderId,
                 'ProductID' => $productId,
@@ -78,15 +116,10 @@ try {
             ];
             insert('order_items', $dataOrderItem);
 
-            // Update product stock
-            $checkQuantity = mysqli_query($conn, "SELECT * FROM product WHERE ProductID='$productId'");
+            // Update product quantity in stock
+            $checkQuantity = mysqli_query($conn, "SELECT Quantity FROM product WHERE ProductID='$productId'");
             $productQuantity = mysqli_fetch_assoc($checkQuantity);
             $newProductQuantity = $productQuantity['Quantity'] - $quantity;
-
-            if ($newProductQuantity < 0) {
-                echo json_encode(['status' => 400, 'message' => "Not enough stock for product ID: $productId"]);
-                exit;
-            }
 
             $updateQuantityQuery = "UPDATE product SET Quantity = '$newProductQuantity' WHERE ProductID = '$productId'";
             mysqli_query($conn, $updateQuantityQuery);
@@ -95,11 +128,11 @@ try {
         // Clear session data
         unset($_SESSION['cart'], $_SESSION['invoice_no'], $_SESSION['payment_mode']);
 
+        // Send a single JSON response
         echo json_encode(['status' => 200, 'message' => 'Order successfully created']);
+        mailToUser($_SESSION['loggedInUser']['Email'], "Order Receipt", $receiptContent);
         exit;
     }
-
-    // Invalid request handling
     echo json_encode(['status' => 400, 'message' => 'Invalid request.']);
 } catch (Exception $e) {
     echo json_encode(['status' => 500, 'message' => 'Internal Server Error.']);

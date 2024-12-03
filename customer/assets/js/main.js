@@ -158,13 +158,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.querySelectorAll('#saveOrder').forEach(function (saveOrderBtn) {
         saveOrderBtn.addEventListener('click', function () {
+            const receipt = document.getElementById('receipt').innerHTML;
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'orders-function.php', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function () {
                 try {
                     var res = JSON.parse(xhr.responseText);
-                    if (res.status === 200) {
+                    if (res.status == 200) {
                         var modalElement = document.getElementById('orderSuccess');
                         var modal = new bootstrap.Modal(modalElement);
                         modal.show();
@@ -172,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         alert(res.message);
                     }
                 } catch (e) {
-                    alert('Failed to process server response.');
+                    alert('Failed to process server response.' + e);
                 }
             };
             xhr.onerror = function () {
@@ -180,9 +182,8 @@ document.addEventListener('DOMContentLoaded', () => {
             };
     
             // Send JSON data
-            xhr.send(JSON.stringify({ saveOrder: true }));
+            xhr.send(JSON.stringify({ saveOrder: true, receipt: receipt }));
         });
     });
     
-        
-});
+});    

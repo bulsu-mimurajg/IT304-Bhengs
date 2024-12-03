@@ -30,16 +30,35 @@ mysqli_select_db($conn, DB_DATABASE);
 
 // Tables to create
 $tables = [
+    "product_category" => "
+        CREATE TABLE `product_category` (
+            `CategoryID` int(11) NOT NULL AUTO_INCREMENT,
+            `CategoryName` varchar(255) NOT NULL,
+            `CategoryDescription` varchar(1000) DEFAULT NULL,
+            PRIMARY KEY (`CategoryID`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+    ",
     "customer" => "
         CREATE TABLE `customer` (
             `CustomerID` int(11) NOT NULL AUTO_INCREMENT,
             `FName` varchar(255) NOT NULL,
             `LName` varchar(255) NOT NULL,
             `Address` varchar(255) NOT NULL,
-            `Email` varchar(255) NOT NULL,
+            `Email` varchar(255) NOT NULL UNIQUE,
             `Phone` varchar(255) NOT NULL,
             `Password` varchar(255) NOT NULL,
             PRIMARY KEY (`CustomerID`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+    ",
+    "product" => "
+        CREATE TABLE `product` (
+            `ProductID` int(11) NOT NULL AUTO_INCREMENT,
+            `ProductName` varchar(255) NOT NULL,
+            `Price` int(11) NOT NULL,
+            `Quantity` int(11) NOT NULL,
+            `ProductImage` varchar(255) NOT NULL,
+            `CategoryID` int(11) NOT NULL,
+            PRIMARY KEY (`ProductID`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
     ",
     "orders" => "
@@ -64,25 +83,6 @@ $tables = [
             `Quantity` varchar(100) NOT NULL,
             PRIMARY KEY (`ID`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-    ",
-    "product" => "
-        CREATE TABLE `product` (
-            `ProductID` int(11) NOT NULL AUTO_INCREMENT,
-            `ProductName` varchar(255) NOT NULL,
-            `Price` int(11) NOT NULL,
-            `Quantity` int(11) NOT NULL,
-            `ProductImage` varchar(255) NOT NULL,
-            `CategoryID` int(11) NOT NULL,
-            PRIMARY KEY (`ProductID`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-    ",
-    "product_category" => "
-        CREATE TABLE `product_category` (
-            `CategoryID` int(11) NOT NULL AUTO_INCREMENT,
-            `CategoryName` varchar(255) NOT NULL,
-            `CategoryDescription` varchar(1000) DEFAULT NULL,
-            PRIMARY KEY (`CategoryID`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
     "
 ];
 
@@ -99,10 +99,66 @@ foreach ($tables as $table_name => $create_query) {
         }
     }
 }
+
+$alterQueries = [
+    [
+        "table" => "product",
+        "constraint" => "fk_product_category",
+        "query" => "ALTER TABLE `product` ADD CONSTRAINT `fk_product_category`
+                    FOREIGN KEY (`CategoryID`) REFERENCES `product_category`(`CategoryID`)
+                    ON DELETE CASCADE ON UPDATE CASCADE;"
+    ],
+    [
+        "table" => "orders",
+        "constraint" => "fk_orders_customer",
+        "query" => "ALTER TABLE `orders` ADD CONSTRAINT `fk_orders_customer`
+                    FOREIGN KEY (`CustomerID`) REFERENCES `customer`(`CustomerID`)
+                    ON DELETE CASCADE ON UPDATE CASCADE;"
+    ],
+    [
+        "table" => "order_items",
+        "constraint" => "fk_order_items_order",
+        "query" => "ALTER TABLE `order_items` ADD CONSTRAINT `fk_order_items_order`
+                    FOREIGN KEY (`OrderID`) REFERENCES `orders`(`OrderID`)
+                    ON DELETE CASCADE ON UPDATE CASCADE;"
+    ],
+    [
+        "table" => "order_items",
+        "constraint" => "fk_order_items_product",
+        "query" => "ALTER TABLE `order_items` ADD CONSTRAINT `fk_order_items_product`
+                    FOREIGN KEY (`ProductID`) REFERENCES `product`(`ProductID`)
+                    ON DELETE CASCADE ON UPDATE CASCADE;"
+    ]
+];
+
+// Check and execute ALTER TABLE queries
+foreach ($alterQueries as $alter) {
+    $checkQuery = "
+        SELECT CONSTRAINT_NAME
+        FROM information_schema.KEY_COLUMN_USAGE
+        WHERE TABLE_NAME = '{$alter['table']}'
+        AND CONSTRAINT_NAME = '{$alter['constraint']}'
+        AND CONSTRAINT_SCHEMA = DATABASE();
+    ";
+
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    // Only run ALTER TABLE if the foreign key does not already exist
+    if (mysqli_num_rows($checkResult) == 0) {
+        if (mysqli_query($conn, $alter['query'])) {
+            echo "Foreign key constraint '{$alter['constraint']}' added successfully to '{$alter['table']}'.\n";
+        } else {
+            die("Error adding foreign key constraint: " . mysqli_error($conn));
+        }
+    }
+}
+
+
+
 // Insert default data
 $default_data = [
     "customer" => [
-        ["FName" => 'Jaden', "LName" => "Mimura", "Address" => "123 Main St, Cityville", "Email" => "jaden@example.com", "Phone" => "123-456-7890", "Password" => password_hash('asd', PASSWORD_DEFAULT)],
+        ["FName" => 'Jaden', "LName" => "Mimura", "Address" => "123 Main St, Cityville", "Email" => "vioaescode@gmail.com", "Phone" => "123-456-7890", "Password" => password_hash('asd', PASSWORD_DEFAULT)],
     ],
     "product_category" => [
         ["CategoryName" => "Kimchi Family", "CategoryDescription" => "Kimchi 4 Life"],

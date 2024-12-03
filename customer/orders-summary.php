@@ -14,6 +14,7 @@ $invoiceNo = $_SESSION['invoice_no'];
             </div>
             <div class="modal-body">
                 <p>Thank you for ordering!</p>
+                <p>We have emailed you the receipt :D</p>
             </div>
             <div class="modal-footer">
                 <a href="orders.php" class="btn btn-secondary">Close</a>

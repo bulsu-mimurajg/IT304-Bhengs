@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="assets/css/sign-up.css">
 
-<main class="sign-up">
+<div class="sign-up">
   <div class="parallax parallax-1"></div>
   <div class="content centered">
     <div class="signup-box">
@@ -10,13 +10,12 @@
       <h1>Create Account</h1>
 
       <form action="signup-function.php" method="POST">
-        <div>
-          <div class="signup-content address-group">
-            <label>Address:</label>
-            <input type="text" name="address" placeholder="Enter address" required>
-            <p class="note">Note: City of Malolos only</p>
-          </div>
-
+        <div class="signup-content address-group">
+          <label>Address:</label>
+          <input type="text" name="address" placeholder="Enter address" required>
+          <p class="note">Note: City of Malolos only</p>
+        </div>
+        <div class="form-row">
           <div class="signup-content">
             <label>Surname:</label>
             <input type="text" name="lname" placeholder="Enter surname" required>
@@ -46,20 +45,19 @@
             <label>Confirm Password:</label>
             <input type="password" name="confirmPassword" placeholder="Confirm password" required>
           </div>
-          <div>
-            <div class="display-4">
-              <hr>
-            </div>
-            <div class="gotta-login">
-              <span> Already have an account? </span>
-              <a href="login.php">Login</a>
-            </div>
-            <button class="btn-signup" name="register" type="submit">SIGN UP</button>
-          </div>
         </div>
 
+        <div class="display-4">
+          <hr>
+        </div>
+        <div class="gotta-login">
+          <span> Already have an account? </span>
+          <a href="login.php">Login</a>
+        </div>
+        <div>
+          <button class="btn-signup" name="register" type="submit">SIGN UP</button>
+        </div>
+      </form>
     </div>
-    </form>
-
   </div>
-</main>
+</div>
