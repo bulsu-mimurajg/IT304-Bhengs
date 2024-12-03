@@ -48,7 +48,7 @@
                                             <?php endif; ?>
                                             <a href="orders-view.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-info btn-sm">View</a>
                                             <?php if ($item['OrderStatus'] !== 'Cancelled') : ?>
-                                                <a href="orders-status.php?id=<?= $item['TrackingNo'] ?>&action=toggle_status" class="btn <?= $item['OrderStatus'] == 'Completed' ? 'btn-warning' : 'btn-success' ?> btn-sm">
+                                                <a href="orders-status.php?id=<?= $item['TrackingNo'] ?>&action=toggle_status&email=<?= $item['Email'] ?>" class="btn <?= $item['OrderStatus'] == 'Completed' ? 'btn-warning' : 'btn-success' ?> btn-sm">
                                                     <?= ($item['OrderStatus'] == 'Completed') ? 'Mark as Pending' : 'Mark as Complete' ?>
                                                 </a>
                                                 <a href="orders-view-print.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-secondary btn-sm">Print</a>
