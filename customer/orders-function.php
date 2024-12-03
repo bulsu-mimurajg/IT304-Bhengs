@@ -49,7 +49,6 @@ try {
             exit;
         }
 
-        $receiptContent = ($input['receipt']);
 
         $sessionProducts = $_SESSION['cart'];
         $totalPrice = 0;
@@ -57,36 +56,40 @@ try {
 
         // Check stock for each product before proceeding
         foreach ($sessionProducts as $item) {
-            $checkQuantity = mysqli_query($conn, "SELECT ProductName, Quantity FROM product WHERE ProductID='{$item['id']}'");
+            $checkQuantity = mysqli_query($conn, "SELECT * FROM product WHERE ProductID='{$item['id']}'");
             $productQuantity = mysqli_fetch_assoc($checkQuantity);
 
+            if (!$productQuantity) {
+                echo json_encode(['status' => 404, 'message' => "Product not found (Product ID: {$item['id']})."]);
+                exit;
+            }
+
+            // Notify admin if stock is low
             if ($productQuantity['Quantity'] <= 25) {
                 $query = "SELECT Email FROM customer WHERE CustomerID = 1";
-
                 $result = mysqli_query($conn, $query);
+
                 if ($result) {
                     $customer = mysqli_fetch_assoc($result);
                     $adminEmail = $customer['Email'];
-                    $message = $productQuantity['ProductName'] . ' stock is getting below <b>25</b>';
+                    $message = $productQuantity['ProductName'] . ' stock is getting below <b>25</b><br><br>Current stock: ' . $productQuantity['Quantity'];
                     mailToUser($adminEmail, "Low Stock Level", $message);
                 } else {
-                    echo "Error: " . mysqli_error($conn);
+                    echo "Error fetching admin email: " . mysqli_error($conn);
+                    exit;
                 }
-
-                if ($productQuantity['Quantity'] < $item['quantity']) {
-                    $insufficientStock = true;
-                    $productId = $item['id'];
-                    break;
-                }
-
-                $totalPrice += $item['price'] * $item['quantity'];
             }
+
+            // Check for insufficient stock
+            if ($productQuantity['Quantity'] < $item['quantity']) {
+                echo json_encode(['status' => 400, 'message' => "Not enough stock for {$productQuantity['ProductName']} (Product ID: {$item['id']})."]);
+                exit;
+            }
+
+            // Accumulate the total price for valid items
+            $totalPrice += $item['price'] * $item['quantity'];
         }
 
-        if ($insufficientStock) {
-            echo json_encode(['status' => 400, 'message' => "Not enough stock for product ID: $productId"]);
-            exit;
-        }
 
         // Insert order data
         $data = [
@@ -130,6 +133,7 @@ try {
 
         // Send a single JSON response
         echo json_encode(['status' => 200, 'message' => 'Order successfully created']);
+        $receiptContent = ($input['receipt']);
         mailToUser($_SESSION['loggedInUser']['Email'], "Order Receipt", $receiptContent);
         exit;
     }

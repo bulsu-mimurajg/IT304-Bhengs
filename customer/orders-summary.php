@@ -80,7 +80,7 @@ $invoiceNo = $_SESSION['invoice_no'];
                                     $totalAmount = 0;
 
                                     if (!empty($sessionProducts)) {
-                                        //print_r($sessionProducts);
+                                        print_r($sessionProducts);
                                         foreach ($sessionProducts as $row) :
                                             $totalAmount += $row['price'] * $row['quantity'];
                                     ?>
