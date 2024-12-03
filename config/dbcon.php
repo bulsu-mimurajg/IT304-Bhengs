@@ -162,7 +162,7 @@ if (!isset($_SESSION['default_data_inserted']) || $_SESSION['default_data_insert
     // Insert default data
     $default_data = [
         "customer" => [
-            ["FName" => 'Jaden', "LName" => "Mimura", "Address" => "123 Main St, Cityville", "Email" => "vioaescode@gmail.com", "Phone" => "123-456-7890", "Password" => password_hash('asd', PASSWORD_DEFAULT)],
+            ["FName" => 'Jaden', "LName" => "Mimura", "Address" => "123 Main St, Cityville", "Email" => "vioaescode@gmail.com", "Phone" => "1234567890", "Password" => password_hash('asd', PASSWORD_DEFAULT)],
         ],
         "product_category" => [
             ["CategoryName" => "Kimchi Family", "CategoryDescription" => "Kimchi 4 Life"],
