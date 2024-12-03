@@ -2,6 +2,14 @@
 if (!isset($_SESSION['productItems'])) {
     echo '<script>window.location.href = "orders-create.php"</script>';
 }
+function replaceVowels($string)
+{
+    // Define vowels
+    $vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+
+    // Replace each vowel with an asterisk
+    return str_ireplace($vowels, '*', $string);
+}
 ?>
 
 <div class="modal" tabindex="-1" id="orderSuccess" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -115,7 +123,11 @@ if (!isset($_SESSION['productItems'])) {
                                             <td colspan="1" style="font-weight:bold;"><?= number_format($totalAmount, 0) ?></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="5">Payment Mode: <?= $_SESSION['payment_mode'] ?></td>
+                                            <td colspan="5">
+                                                Payment Mode: <?= $_SESSION['payment_mode'] ?>
+                                                <?= $phone ?>
+                                                <?= replaceVowels($_SESSION['loggedInUser']['FName']) ?>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

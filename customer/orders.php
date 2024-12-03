@@ -1,9 +1,7 @@
 <?php include('includes/header.php'); ?>
 <link rel="stylesheet" href="assets/css/orders.css">
-<!-- <link rel="stylesheet" href="assets/css/1.css">/ -->
 
 <div class="user-page">
-
   <?php include('includes/sidebar.php'); ?>
 
   <div class="main-content">
@@ -30,7 +28,7 @@
         </thead>
         <tbody>
           <?php
-          $query = "SELECT o.*, c.* FROM orders o JOIN customer c ON o.CustomerID = c.CustomerID ORDER BY o.OrderID DESC;";
+          $query = "SELECT o.*, c.* FROM orders o JOIN customer c ON o.CustomerID = c.CustomerID WHERE o.CustomerID = {$_SESSION['loggedInUser']['CustomerID']} ORDER BY o.OrderID DESC;";
           $orders = mysqli_query($conn, $query);
           if ($orders) {
             if (mysqli_num_rows($orders) > 0) {

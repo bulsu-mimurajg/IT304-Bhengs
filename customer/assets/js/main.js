@@ -187,3 +187,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
 });    
+
+
+function toggleFaq(element) {
+    const content = element.nextElementSibling; // Get the next sibling, which is the content
+    const isOpen = content.style.display === "block";
+  
+    // Close all open accordion items
+    document.querySelectorAll(".faq-content").forEach((item) => {
+      item.style.display = "none";
+    });
+  
+    // Toggle the clicked one
+    if (!isOpen) {
+      content.style.display = "block"; // Open only if it was previously closed
+    }
+  }
+
+  //notif to sa add cart
+document.addEventListener('DOMContentLoaded', function() {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+  
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevents the default link behavior
+  
+            // Get product details from data attributes
+            const productName = this.getAttribute('data-product-name');
+            const productPrice = this.getAttribute('data-product-price');
+            const productImage = this.getAttribute('data-product-image');
+  
+            // Simulate adding the product to the cart (you can also add Ajax here for a real cart)
+            // For now, just show an alert
+            alert(`${productName} has been added to your cart!\nPrice: ₱${productPrice}`);
+  
+            // Optionally, you can also handle adding the product to the cart array in localStorage or session
+            // cart.push({ productName, productPrice, productImage });
+            // localStorage.setItem('cart', JSON.stringify(cart));
+        });
+    });
+});
