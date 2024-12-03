@@ -10,6 +10,16 @@ if (isset($_POST['saveProduct'])) {
     $quantity = validate($_POST['quantity']);
     // $image = validate($_POST['price']);
 
+    if ($price <= 0) {
+        redirect('products-create.php', 'Price cannot be negative.');
+        exit;
+    }
+
+    if ($quantity <= 0) {
+        redirect('products-create.php', 'Quantity cannot be negative.');
+        exit;
+    }
+
     if ($_FILES['image']['size'] > 0) {
         $path = "../assets/img/uploads/products/";
         $image_ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
