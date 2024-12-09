@@ -47,6 +47,9 @@
                       <a href="orders-cancel.php?id=<?= $item['TrackingNo'] ?>" class="btn btn-sm"
                         onclick="return confirm('Cancel this order?')">Cancel Order</a>
                     <?php endif; ?>
+                    <?php if ($item['OrderStatus'] === 'Pending') : ?>
+                      <a href="orders-pay.php?id=<?= $item['TrackingNo'] ?>" target="_blank" class="btn btn-sm">Pay Now</a>
+                    <?php endif; ?>
                     <a href="orders-view.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-sm">View</a>
                     <a href="orders-view-print.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-sm">Print</a>
                   </td>

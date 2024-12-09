@@ -1,6 +1,7 @@
 <?php
 
 include('../config/function.php');
+require_once('../config/Paymongo/vendor/autoload.php');
 
 // if (!isset($_SESSION['productItems'])) {
 //     $_SESSION['productItems'] = [];
@@ -90,16 +91,30 @@ try {
             $totalPrice += $item['price'] * $item['quantity'];
         }
 
+        // Paymongo API
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'https://api.paymongo.com/v1/links', [
+            'body' => '{"data":{"attributes":{"amount":' . $totalPrice . '00,"description":"my payment"}}}',
+            'headers' => [
+                'accept' => 'application/json',
+                'authorization' => 'Basic c2tfdGVzdF8yR01aZG9LYjg2dDVoV2lQOW01czNlN246',
+                'content-type' => 'application/json',
+            ],
+        ]);
+
+        $paymentData = json_decode($response->getBody(), true);
+        $checkoutUrl = $paymentData['data']['attributes']['checkout_url'];
 
         // Insert order data
         $data = [
             'CustomerID' => $_SESSION['loggedInUser']['CustomerID'],
-            'TrackingNo' => rand(11111, 99999),
+            'TrackingNo' => $paymentData['data']['attributes']['reference_number'],
             'InvoiceNo' => $_SESSION['invoice_no'],
             'TotalPrice' => $totalPrice,
             'OrderDate' => date('Y-m-d'),
             'OrderStatus' => 'Pending',
-            'PaymentMode' => $_SESSION['payment_mode']
+            'PaymentMode' => $_SESSION['payment_mode'],
+            'CheckoutURL' => $checkoutUrl,
         ];
         $result = insert('orders', $data);
         $lastOrderId = mysqli_insert_id($conn);
@@ -134,7 +149,7 @@ try {
         // Send a single JSON response
         echo json_encode(['status' => 200, 'message' => 'Order successfully created']);
         $receiptContent = ($input['receipt']);
-        mailToUser($_SESSION['loggedInUser']['Email'], "Order Receipt", $receiptContent);
+        mailToUser($_SESSION['loggedInUser']['Email'], "Order Receipt - Pending", $receiptContent);
         exit;
     }
     echo json_encode(['status' => 400, 'message' => 'Invalid request.']);

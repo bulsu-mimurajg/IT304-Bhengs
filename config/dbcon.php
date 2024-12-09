@@ -73,6 +73,7 @@ $tables = [
             `OrderDate` date NOT NULL,
             `OrderStatus` varchar(100) NOT NULL,
             `PaymentMode` varchar(100) NOT NULL,
+            `CheckoutURL` varchar(100) NOT NULL,
             PRIMARY KEY (`OrderID`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
     ",
@@ -162,7 +163,8 @@ if (!isset($_SESSION['default_data_inserted']) || $_SESSION['default_data_insert
     // Insert default data
     $default_data = [
         "customer" => [
-            ["FName" => 'Jaden', "LName" => "Mimura", "Address" => "123 Main St, Cityville", "Email" => "vioaescode@gmail.com", "Phone" => "1234567890", "Password" => password_hash('asd', PASSWORD_DEFAULT)],
+            ["FName" => 'Admin', "LName" => "Root", "Address" => "123 Main St, Cityville", "Email" => "vioaescode@gmail.com", "Phone" => "1234567890", "Password" => password_hash('asd', PASSWORD_DEFAULT)],
+            ["FName" => 'Black', "LName" => "Gatito", "Address" => "123 Main St, Malolos", "Email" => "mimuraschool@gmail.com", "Phone" => "1234567890", "Password" => password_hash('asd', PASSWORD_DEFAULT)]
         ],
         "product_category" => [
             ["CategoryName" => "Kimchi Family", "CategoryDescription" => "Kimchi 4 Life"],
