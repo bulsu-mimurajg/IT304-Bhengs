@@ -164,7 +164,7 @@ if (!isset($_SESSION['default_data_inserted']) || $_SESSION['default_data_insert
     $default_data = [
         "customer" => [
             ["FName" => 'Admin', "LName" => "Root", "Address" => "123 Main St, Cityville", "Email" => "vioaescode@gmail.com", "Phone" => "1234567890", "Password" => password_hash('asd', PASSWORD_DEFAULT)],
-            ["FName" => 'Black', "LName" => "Gatito", "Address" => "123 Main St, Malolos", "Email" => "mimuraschool@gmail.com", "Phone" => "1234567890", "Password" => password_hash('asd', PASSWORD_DEFAULT)]
+            ["FName" => 'Black', "LName" => "Gatito", "Address" => "123 Main St, Malolos", "Email" => "mimuraschool@gmail.com", "Phone" => "09763328722", "Password" => password_hash('asd', PASSWORD_DEFAULT)]
         ],
         "product_category" => [
             ["CategoryName" => "Kimchi Family", "CategoryDescription" => "Kimchi 4 Life"],
@@ -173,10 +173,10 @@ if (!isset($_SESSION['default_data_inserted']) || $_SESSION['default_data_insert
             ["CategoryName" => "Filipino", "CategoryDescription" => "Filipino Classics"],
         ],
         "product" => [
-            ["ProductName" => "Radish Kimchi", "Price" => 80, "Quantity" => 100, "ProductImage" => "assets/img/radishkimchi.jpg", "CategoryID" => 1],
-            ["ProductName" => "Napa Kimchi", "Price" => 80, "Quantity" => 100, "ProductImage" => "assets/img/napa.jpg", "CategoryID" => 1],
-            ["ProductName" => "Kimchi Sauce", "Price" => 80, "Quantity" => 100, "ProductImage" => "assets/img/sauce.jpg", "CategoryID" => 1],
-            ["ProductName" => "Kimchi Rice", "Price" => 40, "Quantity" => 100, "ProductImage" => "assets/img/rice.jpg", "CategoryID" => 1],
+            ["ProductName" => "Radish Kimchi", "Price" => 115, "Quantity" => 100, "ProductImage" => "assets/img/radishkimchi.jpg", "CategoryID" => 1],
+            ["ProductName" => "Napa Kimchi", "Price" => 130, "Quantity" => 100, "ProductImage" => "assets/img/napa.jpg", "CategoryID" => 1],
+            ["ProductName" => "Kimchi Sauce", "Price" => 120, "Quantity" => 100, "ProductImage" => "assets/img/sauce.jpg", "CategoryID" => 1],
+            ["ProductName" => "Kimchi Rice", "Price" => 100, "Quantity" => 100, "ProductImage" => "assets/img/rice.jpg", "CategoryID" => 1],
             ["ProductName" => "Kimchi Ramen", "Price" => 150, "Quantity" => 100, "ProductImage" => "assets/img/ramen.jpg", "CategoryID" => 1],
             ["ProductName" => "Regular Kimbap", "Price" => 140, "Quantity" => 100, "ProductImage" => "assets/img/kimbap.jpg", "CategoryID" => 2],
             ["ProductName" => "Kimchi Kimbap", "Price" => 140, "Quantity" => 100, "ProductImage" => "assets/img/kimchibap.jpg", "CategoryID" => 2],

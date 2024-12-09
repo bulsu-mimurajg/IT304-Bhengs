@@ -20,12 +20,6 @@ try {
     // Decode JSON input
     $input = json_decode(file_get_contents('php://input'), true);
 
-    // Check if input is empty
-    if (empty($input)) {
-        echo json_encode(['status' => 400, 'message' => 'Empty cart data.']);
-        exit;
-    }
-
     // Handle cart data sent from "placeOrder"
     if (!empty($input['cart'])) {
         $_SESSION['cart'] = $input['cart'];
@@ -94,7 +88,7 @@ try {
         // Paymongo API
         $client = new \GuzzleHttp\Client();
         $response = $client->request('POST', 'https://api.paymongo.com/v1/links', [
-            'body' => '{"data":{"attributes":{"amount":' . $totalPrice . '00,"description":"my payment"}}}',
+            'body' => '{"data":{"attributes":{"amount":' . ($totalPrice * 100) . ',"description":"my payment"}}}',
             'headers' => [
                 'accept' => 'application/json',
                 'authorization' => 'Basic c2tfdGVzdF8yR01aZG9LYjg2dDVoV2lQOW01czNlN246',
@@ -151,8 +145,8 @@ try {
         $receiptContent = ($input['receipt']);
         mailToUser($_SESSION['loggedInUser']['Email'], "Order Receipt - Pending", $receiptContent);
         exit;
+    } else {
     }
-    echo json_encode(['status' => 400, 'message' => 'Invalid request.']);
 } catch (Exception $e) {
     echo json_encode(['status' => 500, 'message' => 'Internal Server Error.']);
 }

@@ -44,6 +44,7 @@ function replaceVowels($string)
                     <?php alertMessage(); ?>
                     <div id="receipt">
                         <?php
+                        $customerName = '';
                         if (isset($_SESSION['phone'])) {
                             $phone = validate($_SESSION['phone']);
                             $invoiceNo = validate($_SESSION['invoice_no']);
@@ -52,6 +53,7 @@ function replaceVowels($string)
                             if ($query) {
                                 if (mysqli_num_rows($query) > 0) {
                                     $row = mysqli_fetch_assoc($query);
+                                    $customerName = $row['FName'];
                         ?>
                                     <table style="width: 100%; margin-bottom:20px;">
                                         <tbody>
@@ -126,7 +128,7 @@ function replaceVowels($string)
                                             <td colspan="5">
                                                 Payment Mode: <?= $_SESSION['payment_mode'] ?>
                                                 <?= $phone ?>
-                                                <?= replaceVowels($_SESSION['loggedInUser']['FName']) ?>
+                                                <?= replaceVowels($customerName) ?>
                                             </td>
                                         </tr>
                                     </tbody>

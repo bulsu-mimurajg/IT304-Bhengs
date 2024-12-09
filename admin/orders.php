@@ -21,6 +21,7 @@
                             <th>Order Date</th>
                             <th>Order Status</th>
                             <th>Payment Mode</th>
+                            <th>Checkout URL</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -42,6 +43,7 @@
                                         <td><?= date('d M, Y', strtotime($item['OrderDate'])) ?></td>
                                         <td><?= $item['OrderStatus'] ?></td>
                                         <td><?= $item['PaymentMode'] ?></td>
+                                        <td><?= $item['CheckoutURL'] ?></td>
                                         <td>
                                             <?php if ($item['OrderStatus'] !== 'Completed' && $item['OrderStatus'] !== 'Cancelled') : ?>
                                                 <a href="orders-cancel.php?id=<?= $item['TrackingNo'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Cancel this order?')">Cancel Order</a>
@@ -64,7 +66,7 @@
                                 ?>
                                 <tr>
                                     <td></td>
-                                    <td colspan="7">No existing record.</td>
+                                    <td colspan="8">No existing record.</td>
                                 </tr>
                         <?php
                             }
