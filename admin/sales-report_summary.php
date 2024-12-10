@@ -106,20 +106,20 @@
 
 <script>
     // Pass PHP data to JavaScript
-    const salesData = <?php echo $jFormat; ?>; // Example: [{category: 'Electronics', sales: 1200}, {category: 'Furniture', sales: 800}]
+    const salesData = <?php echo $jFormat; ?>;
 
     const sortedCategorySalesData = salesData.sort((a, b) => a.sales - b.sales);
 
     // Extract labels and data from salesData
-    const labels = salesData.map(item => item.category); // Categories
-    const salesValues = salesData.map(item => item.sales); // Total Sales per category
+    const labels = salesData.map(item => item.category);
+    const salesValues = salesData.map(item => item.sales);
 
     // Configure and render the chart
     const data = {
-        labels: labels, // Use categories as labels
+        labels: labels,
         datasets: [{
             label: 'Revenue',
-            data: salesValues, // Sales data
+            data: salesValues,
             borderWidth: 1,
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
@@ -152,7 +152,7 @@
                 }
             },
             responsive: true,
-            maintainAspectRatio: false // Ensures chart fills the container
+            maintainAspectRatio: false
         }
     };
 
@@ -172,10 +172,10 @@
 
     // Configure and render the chart
     const productData = {
-        labels: productLabels, // Use product names as labels
+        labels: productLabels,
         datasets: [{
             label: 'Total Sales by Product',
-            data: productSales, // Total sales for each product
+            data: productSales,
             borderWidth: 1,
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgba(54, 162, 235, 1)',
