@@ -21,7 +21,8 @@
                             <th>Order Date</th>
                             <th>Order Status</th>
                             <th>Payment Mode</th>
-                            <th>Action</th>
+                            <th>Checkout URL</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
@@ -42,14 +43,22 @@
                                         <td><?= date('d M, Y', strtotime($item['OrderDate'])) ?></td>
                                         <td><?= $item['OrderStatus'] ?></td>
                                         <td><?= $item['PaymentMode'] ?></td>
+                                        <td><?= $item['CheckoutURL'] ?></td>
                                         <td>
-                                            <a href="orders-cancel.php?id=<?= $item['TrackingNo'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Cancel this order?')">Cancel</a>
+                                            <?php if ($item['OrderStatus'] !== 'Completed' && $item['OrderStatus'] !== 'Cancelled') : ?>
+                                                <a href="orders-cancel.php?id=<?= $item['TrackingNo'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Cancel this order?')">Cancel Order</a>
+                                            <?php endif; ?>
                                             <a href="orders-view.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-info btn-sm">View</a>
-                                            <a href="orders-status.php?id=<?= $item['TrackingNo'] ?>&action=toggle_status" class="btn <?= $item['OrderStatus'] == 'Delivered' ? 'btn-warning' : 'btn-success' ?> btn-sm">
-                                                <?= $item['OrderStatus'] == 'Delivered' ? 'Mark as Pending' : 'Mark as Delivered' ?>
-                                            </a>
-                                            <a href="orders-view-print.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-secondary btn-sm">Print</a>
+                                            <?php if ($item['OrderStatus'] !== 'Cancelled') : ?>
+                                                <a href="orders-status.php?id=<?= $item['TrackingNo'] ?>&action=toggle_status&email=<?= $item['Email'] ?>" class="btn <?= $item['OrderStatus'] == 'Completed' ? 'btn-warning' : 'btn-success' ?> btn-sm">
+                                                    <?= ($item['OrderStatus'] == 'Completed') ? 'Mark as Pending' : 'Mark as Complete' ?>
+                                                </a>
+                                                <a href="orders-view-print.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-secondary btn-sm">Print</a>
+                                            <?php else : ?>
+                                                <a href="orders-restore.php?id=<?= $item['TrackingNo'] ?>" class="btn btn-primary btn-sm">Restore</a>
+                                            <?php endif; ?>
                                         </td>
+
                                     </tr>
                                 <?php
                                 endforeach;
@@ -57,7 +66,7 @@
                                 ?>
                                 <tr>
                                     <td></td>
-                                    <td colspan="7">No existing record.</td>
+                                    <td colspan="8">No existing record.</td>
                                 </tr>
                         <?php
                             }

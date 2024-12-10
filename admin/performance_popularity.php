@@ -25,23 +25,44 @@
                         ";
 
 
-            // Top 3 Least Ordered Products Query
-            $botQuery = "SELECT 
-                            p.ProductName,
-                            COALESCE(SUM(oi.Quantity), 0) AS totalOrderedQuantity
-                        FROM 
-                            product p
-                        LEFT JOIN 
-                            order_items oi ON oi.ProductID = p.ProductID
-                        LEFT JOIN 
-                            orders o ON oi.OrderID = o.OrderID
-                        GROUP BY 
-                            p.ProductName
-                        ORDER BY 
-                            totalOrderedQuantity ASC
-                        LIMIT 3;
-                        ";
+            // Query for products never ordered
+            $neverOrderedQuery = "SELECT 
+                    p.ProductName,
+                    0 AS totalOrderedQuantity
+                FROM 
+                    product p
+                WHERE 
+                    p.ProductID NOT IN (
+                        SELECT DISTINCT ProductID 
+                        FROM order_items
+                    )
+                ";
 
+
+            // Query for least ordered products (ordered at least once)
+            $leastOrderedQuery = "SELECT 
+                    p.ProductName,
+                    COALESCE(SUM(oi.Quantity), 0) AS totalOrderedQuantity
+                FROM 
+                    product p
+                LEFT JOIN 
+                    order_items oi ON oi.ProductID = p.ProductID
+                LEFT JOIN 
+                    orders o ON oi.OrderID = o.OrderID
+                WHERE 
+                    p.ProductID IN (
+                        SELECT DISTINCT ProductID 
+                        FROM order_items
+                    )
+                GROUP BY 
+                    p.ProductName
+                ORDER BY 
+                    totalOrderedQuantity ASC
+                LIMIT 3
+                ";
+
+            // // Combine the two queries using UNION
+            // $botQuery = "($neverOrderedQuery) UNION ($leastOrderedQuery) ORDER BY totalOrderedQuantity ASC";
 
             // Get Top Performing Products
             $topResult = mysqli_query($conn, $topQuery);
@@ -60,21 +81,34 @@
                 }
             }
 
-            // Get Bottom Performing Products (last 7 days)
-            $botResult = mysqli_query($conn, $botQuery);
-            if ($botResult) {
-                if (mysqli_num_rows($botResult) > 0) {
-                    $botData = [];
-                    while ($row = mysqli_fetch_assoc($botResult)) {
-                        $botData[] = [
-                            'productName' => $row['ProductName'],
-                            'totalOrderedQuantity' => $row['totalOrderedQuantity']
-                        ];
-                    }
-                    $botJSON = json_encode($botData);
-                } else {
-                    $botJSON = json_encode([]);
+            // Get Never Ordered Products
+            $neverOrderedResult = mysqli_query($conn, $neverOrderedQuery);
+            if ($neverOrderedResult) {
+                $neverOrderedData = [];
+                while ($row = mysqli_fetch_assoc($neverOrderedResult)) {
+                    $neverOrderedData[] = [
+                        'productName' => $row['ProductName'],
+                        'totalOrderedQuantity' => $row['totalOrderedQuantity']
+                    ];
                 }
+                $neverOrderedJSON = json_encode($neverOrderedData);
+            } else {
+                $neverOrderedJSON = json_encode([]);
+            }
+
+            // Get Least Ordered Products
+            $leastOrderedResult = mysqli_query($conn, $leastOrderedQuery);
+            if ($leastOrderedResult) {
+                $leastOrderedData = [];
+                while ($row = mysqli_fetch_assoc($leastOrderedResult)) {
+                    $leastOrderedData[] = [
+                        'productName' => $row['ProductName'],
+                        'totalOrderedQuantity' => $row['totalOrderedQuantity']
+                    ];
+                }
+                $leastOrderedJSON = json_encode($leastOrderedData);
+            } else {
+                $leastOrderedJSON = json_encode([]);
             }
             ?>
 
@@ -88,15 +122,26 @@
                 </div>
             </div>
 
-            <!-- Top 3 Least Ordered -->
+            <!-- Least Ordered Products Chart -->
             <div class="card mt-5 justify-content-center">
                 <div class="card-body">
-                    <h4 class="card-title">Top 3 Least Ordered</h4>
+                    <h4 class="card-title">Least Ordered Products</h4>
                     <div class="card-text">
-                        <canvas id="botChart" style="height: 15rem;"></canvas>
+                        <canvas id="leastOrderedChart" style="height: 15rem;"></canvas>
                     </div>
                 </div>
             </div>
+
+            <!-- Never Ordered Products Chart -->
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h4 class="card-title">Never Ordered Products</h4>
+                    <div class="card-text">
+                        <canvas id="neverOrderedChart" style="height: 15rem;"></canvas>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -147,40 +192,29 @@
         }
     };
 
-    const topChart = new Chart(document.getElementById('topChart'), topConfig);
+    // Process Never Ordered Products Data
+    const neverOrderedData = <?php echo $neverOrderedJSON; ?>;
+    const neverOrderedLabels = neverOrderedData.map(item => item.productName);
+    const neverOrderedQuantities = neverOrderedData.map(item => item.totalOrderedQuantity);
 
-
-    const botData = <?php echo $botJSON; ?>;
-
-    // Sort Bottom Data by Order Frequency Ascending
-    const sortedBotData = botData.sort((a, b) => a.orderFrequency - b.orderFrequency);
-
-    // Extract labels and data
-    const botLabels = sortedBotData.map(item => item.productName);
-    const botQuantities = sortedBotData.map(item => item.totalOrderedQuantity);
-
-    // Configure and render the Least Ordered Products chart
-    const botConfig = {
+    const neverOrderedConfig = {
         type: 'bar',
         data: {
-            labels: botLabels,
+            labels: neverOrderedLabels,
             datasets: [{
-                label: 'Order Frequency',
-                data: botQuantities,
+                label: 'Order Frequency (Never Ordered)',
+                data: neverOrderedQuantities,
                 borderWidth: 1,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
             }]
         },
         options: {
             responsive: true,
             plugins: {
-                legend: {
-                    position: 'top',
-                },
                 title: {
                     display: true,
-                    text: 'Least Performing Products'
+                    text: 'Never Ordered Products'
                 }
             },
             scales: {
@@ -195,7 +229,48 @@
         }
     };
 
-    const botChart = new Chart(document.getElementById('botChart'), botConfig);
+    const neverOrderedChart = new Chart(document.getElementById('neverOrderedChart'), neverOrderedConfig);
+
+    // Process Least Ordered Products Data
+    const leastOrderedData = <?php echo $leastOrderedJSON; ?>;
+    const leastOrderedLabels = leastOrderedData.map(item => item.productName);
+    const leastOrderedQuantities = leastOrderedData.map(item => item.totalOrderedQuantity);
+
+    const leastOrderedConfig = {
+        type: 'bar',
+        data: {
+            labels: leastOrderedLabels,
+            datasets: [{
+                label: 'Order Frequency (Least Ordered)',
+                data: leastOrderedQuantities,
+                borderWidth: 1,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Least Ordered Products'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Order Frequency'
+                    }
+                }
+            }
+        }
+    };
+
+    const leastOrderedChart = new Chart(document.getElementById('leastOrderedChart'), leastOrderedConfig);
+
+    const topChart = new Chart(document.getElementById('topChart'), topConfig);
 </script>
 
 <?php include('includes/footer.php') ?>

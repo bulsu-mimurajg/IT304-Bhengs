@@ -6,19 +6,39 @@ header('Content-Type: application/json');
 if (isset($_GET['period'])) {
     $period = $_GET['period'];
 
-    // Determine the date range
-    switch ($period) {
-        case 'week':
-            $dateCondition = "DATE(OrderDate) >= CURDATE() - INTERVAL 7 DAY AND DATE(OrderDate) <= CURDATE()";
-            break;
-        case 'month':
-            $dateCondition = "DATE_FORMAT(OrderDate, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')";
-            break;
-        case 'year':
-            $dateCondition = "YEAR(OrderDate) = YEAR(CURDATE())";
-            break;
-        default:
-            $dateCondition = "1=1"; // Fetch all data
+    // Initialize dateCondition
+    $dateCondition = "1=1";
+
+    // Handle custom date range
+    if ($period === 'custom' && isset($_GET['startDate']) && isset($_GET['endDate'])) {
+        $startDate = mysqli_real_escape_string($conn, $_GET['startDate']);
+        $endDate = mysqli_real_escape_string($conn, $_GET['endDate']);
+        $dateCondition = "DATE(OrderDate) BETWEEN '$startDate' AND '$endDate'";
+    } else {
+        // Determine the date range for predefined periods
+        switch ($period) {
+            case 'week':
+                $dateCondition = "DATE(OrderDate) >= CURDATE() - INTERVAL 7 DAY AND DATE(OrderDate) <= CURDATE()";
+                break;
+            case 'month':
+                $dateCondition = "DATE_FORMAT(OrderDate, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')";
+                break;
+            case 'last_month':
+                $dateCondition = "DATE_FORMAT(OrderDate, '%Y-%m') = DATE_FORMAT(CURDATE() - INTERVAL 1 MONTH, '%Y-%m')";
+                break;
+            case 'half_year':
+                $dateCondition = "DATE(OrderDate) >= CURDATE() - INTERVAL 6 MONTH";
+                break;
+            case 'year':
+                $dateCondition = "YEAR(OrderDate) = YEAR(CURDATE())";
+                break;
+            case 'last_year':
+                $dateCondition = "YEAR(OrderDate) = YEAR(CURDATE()) - 1";
+                break;
+            case 'all_time':
+                $dateCondition = "1=1";
+                break;
+        }
     }
 
     // Query sales data
@@ -46,4 +66,6 @@ if (isset($_GET['period'])) {
     }
 
     echo json_encode($salesData);
+} else {
+    echo json_encode(['error' => 'Period parameter is missing.']);
 }

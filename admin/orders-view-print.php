@@ -1,4 +1,13 @@
-<?php include('includes/header.php') ?>
+<?php include('includes/header.php');
+function replaceVowels($string)
+{
+    // Define vowels
+    $vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+
+    // Replace each vowel with an asterisk
+    return str_ireplace($vowels, '*', $string);
+}
+?>
 
 <div class="container-fluid px-4">
     <h1 class="mt-3">Print Order</h1>
@@ -30,21 +39,25 @@
                                     <tr>
                                         <td style="text-align:center;" colspan="2">
                                             <h4 style="line-height:30px;margin:2px;padding:0;">Bhengs Homemade</h4>
-                                            <p style="font-size:16px;line-height:24px;margin:2px;padding:0;">Menzyland Subd. Malolos, Bulacan</p>
+                                            <p style="font-size:16px;line-height:24px;margin:2px;padding:0;">Menzyland Subd.
+                                                Malolos, Bulacan</p>
                                             <p style="line-height:24px;margin:2px;padding:0;">facebook.com/BhengsHomemade</p>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <h5 style="line-height:30px;margin:0;padding:0;">Customer Details</h5>
-                                            <p style="line-height:20px;margin:0;padding:0;">Name: <?= $row['FName'] . ' ' .  $row['LName'] ?> </p>
+                                            <p style="line-height:20px;margin:0;padding:0;">Name:
+                                                <?= $row['FName'] . ' ' . $row['LName'] ?> </p>
                                             <p style="line-height:20px;margin:0;padding:0;">Phone Number: <?= $row['Phone'] ?> </p>
                                             <p style="line-height:20px;margin:0;padding:0;">Email: <?= $row['Email'] ?> </p>
                                         </td>
                                         <td align="end">
                                             <h5 style="line-height:30px;margin:0;padding:0;">Invoice Details</h5>
-                                            <p style="line-height:20px;margin:0;padding:0;">Invoice number: <?= $row['InvoiceNo'] ?></p>
-                                            <p style="line-height:20px;margin:0;padding:0;">Invoice Date: <?= $row['OrderDate'] ?></p>
+                                            <p style="line-height:20px;margin:0;padding:0;">Invoice number: <?= $row['InvoiceNo'] ?>
+                                            </p>
+                                            <p style="line-height:20px;margin:0;padding:0;">Invoice Date: <?= $row['OrderDate'] ?>
+                                            </p>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -75,12 +88,13 @@
                                         <tbody>
                                             <?php
                                             $i = 1;
-                                            foreach ($orderItemQueryResult as $key => $row) :
+                                            foreach ($orderItemQueryResult as $key => $row):
                                             ?>
                                                 <tr>
                                                     <td style="border-bottom: 1px solid #ccc"><?= $i++ ?></td>
                                                     <td style="border-bottom: 1px solid #ccc"><?= $row['ProductName'] ?></td>
-                                                    <td style="border-bottom: 1px solid #ccc"><?= number_format($row['orderItemPrice'], 0) ?></td>
+                                                    <td style="border-bottom: 1px solid #ccc">
+                                                        <?= number_format($row['orderItemPrice'], 0) ?></td>
                                                     <td style="border-bottom: 1px solid #ccc"><?= $row['orderItemQuantity'] ?></td>
                                                     <td style="border-bottom: 1px solid #ccc">
                                                         <?= number_format($row['orderItemPrice'] * $row['orderItemQuantity'], 0) ?>
@@ -89,10 +103,16 @@
                                             <?php endforeach; ?>
                                             <tr>
                                                 <td colspan="4" align="end" style="font-weight:bold;">Final Total: </td>
-                                                <td colspan="1" style="font-weight:bold;"><?= number_format($row['TotalPrice'], 0) ?></td>
+                                                <td colspan="1" style="font-weight:bold;"><?= number_format($row['TotalPrice'], 0) ?>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="5">Payment Mode: <?= $row['PaymentMode'] ?></td>
+                                                <td colspan="5">
+                                                    Payment Mode: <?= $row['PaymentMode'] ?>
+                                                    <?= $_SESSION['loggedInUser']['Phone'] ?>
+                                                    <?= replaceVowels($_SESSION['loggedInUser']['FName']) ?>
+                                                </td>
+
                                             </tr>
                                         </tbody>
                                     </table>

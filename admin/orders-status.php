@@ -1,18 +1,22 @@
 <?php
 require '../config/function.php';
 
-if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'toggle_status') {
+if (isset($_GET['email']) && isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'toggle_status') {
     $id = validate($_GET['id']);
+    $email = validate($_GET['email']);
 
-    if (is_numeric($id)) {
+    if (ctype_alnum($id)) {
         $order = getById('orders', 'TrackingNo', $id);
         if ($order['status'] == 200) {
             $currentStatus = $order['data']['OrderStatus'];
 
-            $newStatus = ($currentStatus == 'Delivered') ? 'Pending' : 'Delivered';
+            $newStatus = ($currentStatus == 'Completed') ? 'Pending' : 'Completed';
 
-            $updateQuery = "UPDATE orders SET OrderStatus = '$newStatus' WHERE TrackingNo = $id";
+            $updateQuery = "UPDATE orders SET OrderStatus = '$newStatus' WHERE TrackingNo = '$id'";
             if (mysqli_query($conn, $updateQuery)) {
+                if ($newStatus === "Completed") {
+                    mailToUser($email, "Order Status Complete", "<br>Thank you for your patronage!");
+                }
                 redirect('orders.php', 'Order status updated successfully.');
             } else {
                 redirect('orders.php', 'Failed to update order status.');

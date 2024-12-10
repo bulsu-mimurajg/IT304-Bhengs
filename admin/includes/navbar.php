@@ -11,15 +11,17 @@
     <ul class="navbar-nav me-3 me-lg-4">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-user fa-fw custom-icon"></i>
+                <i class="fas fa-user fa-fw custom-icon mx-1"></i>
+                <?= $_SESSION['loggedInUser']['FName'] ?>
             </a>
+
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <!-- <li><a class="dropdown-item" href="#!">Settings</a></li>
                 <li><a class="dropdown-item" href="#!">Activity Log</a></li> -->
                 <!-- <li>
                     <hr class="dropdown-divider" />
                 </li> -->
-                <li><a class="dropdown-item" href="#!">Logout</a></li>
+                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
             </ul>
         </li>
     </ul>

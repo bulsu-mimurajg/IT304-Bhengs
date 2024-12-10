@@ -1,4 +1,5 @@
 <?php include('includes/header.php');
+
 if (isset($_SESSION['loggedIn'])) {
 ?>
   <script>

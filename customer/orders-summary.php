@@ -2,6 +2,16 @@
 $sessionProducts = $_SESSION['cart'] ?? [];
 $paymentMode = $_SESSION['payment_mode'] ?? 'Not specified';
 $invoiceNo = $_SESSION['invoice_no'];
+
+function replaceVowels($string)
+{
+    // Define vowels
+    $vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+
+    // Replace each vowel with an asterisk
+    return str_ireplace($vowels, '*', $string);
+}
+
 ?>
 
 <link rel="stylesheet" href="assets/css/menu.css">
@@ -14,6 +24,7 @@ $invoiceNo = $_SESSION['invoice_no'];
             </div>
             <div class="modal-body">
                 <p>Thank you for ordering!</p>
+                <p>We have emailed you the receipt :D</p>
             </div>
             <div class="modal-footer">
                 <a href="orders.php" class="btn btn-secondary">Close</a>
@@ -43,21 +54,29 @@ $invoiceNo = $_SESSION['invoice_no'];
                                 <tr>
                                     <td style="text-align:center;" colspan="2">
                                         <h4 style="line-height:30px;margin:2px;padding:0;">Bhengs Homemade</h4>
-                                        <p style="font-size:16px;line-height:24px;margin:2px;padding:0;">Menzyland Subd. Malolos, Bulacan</p>
-                                        <p style="line-height:24px;margin:2px;padding:0;">facebook.com/BhengsHomemade</p>
+                                        <p style="font-size:16px;line-height:24px;margin:2px;padding:0;">Menzyland Subd.
+                                            Malolos, Bulacan</p>
+                                        <p style="line-height:24px;margin:2px;padding:0;">facebook.com/BhengsHomemade
+                                        </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <h5 style="line-height:30px;margin:0;padding:0;">Customer Details</h5>
-                                        <p style="line-height:20px;margin:0;padding:0;">Name: <?= $_SESSION['loggedInUser']['FName'] . ' ' .  $_SESSION['loggedInUser']['LName'] ?> </p>
-                                        <p style="line-height:20px;margin:0;padding:0;">Phone Number: <?= $_SESSION['loggedInUser']['Phone'] ?> </p>
-                                        <p style="line-height:20px;margin:0;padding:0;">Email: <?= $_SESSION['loggedInUser']['Email'] ?> </p>
+                                        <p style="line-height:20px;margin:0;padding:0;">Name:
+                                            <?= $_SESSION['loggedInUser']['FName'] . ' ' . $_SESSION['loggedInUser']['LName'] ?>
+                                        </p>
+                                        <p style="line-height:20px;margin:0;padding:0;">Phone Number:
+                                            <?= $_SESSION['loggedInUser']['Phone'] ?> </p>
+                                        <p style="line-height:20px;margin:0;padding:0;">Email:
+                                            <?= $_SESSION['loggedInUser']['Email'] ?> </p>
                                     </td>
                                     <td align="end">
                                         <h5 style="line-height:30px;margin:0;padding:0;">Invoice Details</h5>
-                                        <p style="line-height:20px;margin:0;padding:0;">Invoice number: <?= $invoiceNo ?></p>
-                                        <p style="line-height:20px;margin:0;padding:0;">Invoice Date: <?= date('d M y') ?></p>
+                                        <p style="line-height:20px;margin:0;padding:0;">Invoice number:
+                                            <?= $invoiceNo ?></p>
+                                        <p style="line-height:20px;margin:0;padding:0;">Invoice Date:
+                                            <?= date('d M y') ?></p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -69,7 +88,8 @@ $invoiceNo = $_SESSION['invoice_no'];
                                         <th align="start" style="border-bottom:1px solid #ccc;" width="5%">ID</th>
                                         <th align="start" style="border-bottom:1px solid #ccc;">Product Name</th>
                                         <th align="start" style="border-bottom:1px solid #ccc;" width="10%">Price</th>
-                                        <th align="start" style="border-bottom:1px solid #ccc;" width="10%">Quantity</th>
+                                        <th align="start" style="border-bottom:1px solid #ccc;" width="10%">Quantity
+                                        </th>
                                         <th align="start" style="border-bottom:1px solid #ccc;" width="15%">Total</th>
                                     </tr>
                                 </thead>
@@ -78,18 +98,22 @@ $invoiceNo = $_SESSION['invoice_no'];
                                     $i = 1;
                                     $totalAmount = 0;
 
+                                    // Check if session data exists
                                     if (!empty($sessionProducts)) {
-                                        //print_r($sessionProducts);
-                                        foreach ($sessionProducts as $row) :
-                                            $totalAmount += $row['price'] * $row['quantity'];
+                                        // Loop through each product in the session
+                                        foreach ($sessionProducts as $product):
+                                            // Calculate the total amount
+                                            $totalAmount += $product['price'] * $product['quantity'];
                                     ?>
                                             <tr>
                                                 <td style="border-bottom: 1px solid #ccc"><?= $i++ ?></td>
-                                                <td style="border-bottom: 1px solid #ccc"><?= htmlspecialchars($row['name']) ?></td>
-                                                <td style="border-bottom: 1px solid #ccc"><?= number_format($row['price'], 0) ?></td>
-                                                <td style="border-bottom: 1px solid #ccc"><?= $row['quantity'] ?></td>
                                                 <td style="border-bottom: 1px solid #ccc">
-                                                    <?= number_format($row['price'] * $row['quantity'], 0) ?>
+                                                    <?= htmlspecialchars($product['name']) ?></td>
+                                                <td style="border-bottom: 1px solid #ccc">
+                                                    <?= number_format($product['price'], 0) ?></td>
+                                                <td style="border-bottom: 1px solid #ccc"><?= $product['quantity'] ?></td>
+                                                <td style="border-bottom: 1px solid #ccc">
+                                                    <?= number_format($product['price'] * $product['quantity'], 0) ?>
                                                 </td>
                                             </tr>
                                     <?php
@@ -100,12 +124,17 @@ $invoiceNo = $_SESSION['invoice_no'];
                                     ?>
                                     <tr>
                                         <td colspan="4" align="end" style="font-weight:bold;">Total: </td>
-                                        <td colspan="1" style="font-weight:bold;"><?= number_format($totalAmount, 0) ?></td>
+                                        <td colspan="1" style="font-weight:bold;"><?= number_format($totalAmount, 0) ?>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="5">Payment Mode: <?= htmlspecialchars($paymentMode) ?></td>
+                                        <td colspan="5">Payment Mode: <?= htmlspecialchars($paymentMode) ?>
+                                            <?= $_SESSION['loggedInUser']['Phone'] ?>
+                                            <?= replaceVowels($_SESSION['loggedInUser']['FName']) ?>
+                                        </td>
                                     </tr>
                                 </tbody>
+
                             </table>
                         </div>
                     </div>

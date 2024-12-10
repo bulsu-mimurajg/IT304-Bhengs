@@ -2,6 +2,14 @@
 if (!isset($_SESSION['productItems'])) {
     echo '<script>window.location.href = "orders-create.php"</script>';
 }
+function replaceVowels($string)
+{
+    // Define vowels
+    $vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+
+    // Replace each vowel with an asterisk
+    return str_ireplace($vowels, '*', $string);
+}
 ?>
 
 <div class="modal" tabindex="-1" id="orderSuccess" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -36,6 +44,7 @@ if (!isset($_SESSION['productItems'])) {
                     <?php alertMessage(); ?>
                     <div id="receipt">
                         <?php
+                        $customerName = '';
                         if (isset($_SESSION['phone'])) {
                             $phone = validate($_SESSION['phone']);
                             $invoiceNo = validate($_SESSION['invoice_no']);
@@ -44,6 +53,7 @@ if (!isset($_SESSION['productItems'])) {
                             if ($query) {
                                 if (mysqli_num_rows($query) > 0) {
                                     $row = mysqli_fetch_assoc($query);
+                                    $customerName = $row['FName'];
                         ?>
                                     <table style="width: 100%; margin-bottom:20px;">
                                         <tbody>
@@ -115,7 +125,11 @@ if (!isset($_SESSION['productItems'])) {
                                             <td colspan="1" style="font-weight:bold;"><?= number_format($totalAmount, 0) ?></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="5">Payment Mode: <?= $_SESSION['payment_mode'] ?></td>
+                                            <td colspan="5">
+                                                Payment Mode: <?= $_SESSION['payment_mode'] ?>
+                                                <?= $phone ?>
+                                                <?= replaceVowels($customerName) ?>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

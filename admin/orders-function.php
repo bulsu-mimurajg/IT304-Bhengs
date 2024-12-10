@@ -1,6 +1,7 @@
 <?php
 
 include('../config/function.php');
+require_once('../config/Paymongo/vendor/autoload.php');
 
 if (!isset($_SESSION['productItemIds'])) {
     $_SESSION['productItemIds'] = [];
@@ -115,14 +116,29 @@ if (isset($_POST['saveOrder'])) {
                     $totalPrice += $item['Price'] * $item['Quantity'];
                 }
 
+                // Paymongo API
+                $client = new \GuzzleHttp\Client();
+                $response = $client->request('POST', 'https://api.paymongo.com/v1/links', [
+                    'body' => '{"data":{"attributes":{"amount":' . ($totalPrice * 100) . ',"description":"my payment"}}}',
+                    'headers' => [
+                        'accept' => 'application/json',
+                        'authorization' => 'Basic c2tfdGVzdF8yR01aZG9LYjg2dDVoV2lQOW01czNlN246',
+                        'content-type' => 'application/json',
+                    ],
+                ]);
+
+                $paymentData = json_decode($response->getBody(), true);
+                $checkoutUrl = $paymentData['data']['attributes']['checkout_url'];
+
                 $data = [
                     'CustomerID' => $customerData['CustomerID'],
-                    'TrackingNo' => rand(11111, 99999),
+                    'TrackingNo' => $paymentData['data']['attributes']['reference_number'],
                     'InvoiceNo' => $invoiceNo,
                     'TotalPrice' => $totalPrice,
                     'OrderDate' => date('Y-m-d'),
                     'OrderStatus' => 'Pending',
-                    'PaymentMode' => $paymentMode
+                    'PaymentMode' => $paymentMode,
+                    'CheckoutURL' => $checkoutUrl,
                 ];
                 $result = insert('orders', $data);
                 $lastOrderId = mysqli_insert_id($conn);

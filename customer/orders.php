@@ -1,9 +1,7 @@
 <?php include('includes/header.php'); ?>
 <link rel="stylesheet" href="assets/css/orders.css">
-<!-- <link rel="stylesheet" href="assets/css/1.css">/ -->
 
 <div class="user-page">
-
   <?php include('includes/sidebar.php'); ?>
 
   <div class="main-content">
@@ -30,7 +28,7 @@
         </thead>
         <tbody>
           <?php
-          $query = "SELECT o.*, c.* FROM orders o JOIN customer c ON o.CustomerID = c.CustomerID ORDER BY o.OrderID DESC;";
+          $query = "SELECT o.*, c.* FROM orders o JOIN customer c ON o.CustomerID = c.CustomerID WHERE o.CustomerID = {$_SESSION['loggedInUser']['CustomerID']} ORDER BY o.OrderID DESC;";
           $orders = mysqli_query($conn, $query);
           if ($orders) {
             if (mysqli_num_rows($orders) > 0) {
@@ -45,9 +43,12 @@
                   <td>PHP <?= number_format($item['TotalPrice'], 0) ?></td>
                   <td><?= $item['OrderStatus'] ?></td>
                   <td>
-                    <?php if ($item['OrderStatus'] !== 'Delivered') : ?>
+                    <?php if ($item['OrderStatus'] !== 'Completed' && $item['OrderStatus'] !== 'Cancelled') : ?>
                       <a href="orders-cancel.php?id=<?= $item['TrackingNo'] ?>" class="btn btn-sm"
                         onclick="return confirm('Cancel this order?')">Cancel Order</a>
+                    <?php endif; ?>
+                    <?php if ($item['OrderStatus'] === 'Pending') : ?>
+                      <a href="orders-pay.php?id=<?= $item['TrackingNo'] ?>" target="_blank" class="btn btn-sm">Pay Now</a>
                     <?php endif; ?>
                     <a href="orders-view.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-sm">View</a>
                     <a href="orders-view-print.php?track=<?= $item['TrackingNo'] ?>" class="btn btn-sm">Print</a>

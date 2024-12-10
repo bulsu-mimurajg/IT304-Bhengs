@@ -29,7 +29,11 @@ if (isset($_POST['loginBtn'])) {
                     'Phone' => $row['Phone'],
                 ];
 
-                header('Location: customer/index.php');
+                if ($row['CustomerID'] != 1) {
+                    header('Location: customer/index.php');
+                } else {
+                    header('Location: admin/index.php');
+                }
             } else {
                 redirect('login.php', 'Username or password is incorrect.');
             }

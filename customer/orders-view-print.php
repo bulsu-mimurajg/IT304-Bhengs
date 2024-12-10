@@ -1,6 +1,18 @@
-<?php include('includes/header.php') ?>
+<?php include('includes/header.php');
+
+function replaceVowels($string)
+{
+    // Define vowels
+    $vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+
+    // Replace each vowel with an asterisk
+    return str_ireplace($vowels, '*', $string);
+}
+
+?>
 
 <link rel="stylesheet" href="assets/css/orders-view-print.css">
+
 
 <div class="container-fluid px-5">
     <?php include('includes/sidebar.php'); ?>
@@ -96,7 +108,9 @@
                                                         <td colspan="1" style="font-weight:bold;"><?= number_format($row['TotalPrice'], 0) ?></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="5">Payment Mode: <?= $row['PaymentMode'] ?></td>
+                                                        <td colspan="5">Payment Mode: <?= $row['PaymentMode'] ?>
+                                                            <?= replaceVowels($_SESSION['loggedInUser']['FName']) ?>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>

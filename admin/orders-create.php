@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-md-2 mb-4">
                         <label for="quantity" class="form-label">Quantity</label>
-                        <input type="number" name="quantity" value="1" class="form-control">
+                        <input type="number" name="quantity" value="1" min="1" class="form-control">
                     </div>
                     <div class="col-md-12 mb-3">
                         <button type="submit" name="addItem" class="btn btn-success float-end px-5">Add Item</button>

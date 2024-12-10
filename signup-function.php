@@ -16,6 +16,10 @@ if (isset($_POST['register'])) {
         $fname != '' && $lname != '' && $address != '' && $email != '' &&
         $phone != '' && $password != '' && $confirmPassword != ''
     ) {
+        // CHECK IF ADDRESS IS WITHIN MALOLOS
+        if (!preg_match('/\bmalolos\b/i', $address)) {
+            redirect('signup.php', 'Sorry! We only operate within Malolos.');
+        }
         //CHECK IF EMAIL IS TAKEN
         $emailCheck = mysqli_query($conn, "SELECT * FROM customer WHERE Email='$email' LIMIT 1");
         if ($emailCheck) {
@@ -40,7 +44,9 @@ if (isset($_POST['register'])) {
 
         $result = insert('customer', $dataToInsert);
         if ($result) {
-            redirect('login.php', 'Account succesfully created.');
+            $msg = "Welcome, <b>" . $fname . "!</b><br><br>You are now registered with Bhengs Homemade <3";
+            mailToUser($email, "Account Creation", $msg);
+            redirect('login.php', 'Account creation successful');
         } else {
             redirect('signup.php', 'Something went wrong...');
         }
