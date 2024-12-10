@@ -129,7 +129,7 @@
         <span class="label">BHENGS HOMEMADE SPECIALS</span>
 
         <div class="menubox">
-            <img src="product_k1.png" alt="Product Image">
+            <img src="assets/img/pork.png" alt="Product Image">
             <h3><span style="color: #e21d70;">BHS1</span> Pork</h3>
             <p id="priceDisplay">₱ 220.00</p>
 
@@ -140,7 +140,7 @@
         </div>
 
         <div class="menubox">
-            <img src="product_k1.png" alt="Product Image">
+            <img src="assets/img/beef.jpg" alt="Product Image">
             <h3><span style="color: #e21d70;">BHS2</span> Beef</h3>
             <p id="priceDisplay">₱ 235.00</p>
 
@@ -404,3 +404,5 @@
     </div>
 
 </section>
+
+<?php include('./includes/footer.php'); ?>
