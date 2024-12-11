@@ -6,7 +6,7 @@
             <img src="./assets/img/3.png" width="150px" class="image-fluid" alt="">
         </a>
         <div class="d-lg-none ms-auto">
-            <button type="button" class="btn">Log In</button>
+            <a href="login.php" class="btn <?= ($currentPage == 'login.php') || ($currentPage == 'signup.php') || ($currentPage == 'forgot-password.php') ? 'gone' : '' ?>" href="orders.php">Login</a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

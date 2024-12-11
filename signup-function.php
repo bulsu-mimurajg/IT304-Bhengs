@@ -27,6 +27,12 @@ if (isset($_POST['register'])) {
                 redirect('signup.php', 'Email already used.');
             }
         }
+
+        // Check IF PASSWORD CONTAINS
+        if (!preg_match('/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/', trim($password))) {
+            redirect('signup.php', '<h6>Password must be at least 8 characters long, contain at least one uppercase letter, and at least one number.</h6>');
+        }
+
         //CHECK IF PASSWORD DO NOT MATCH
         if (trim($password) != trim($confirmPassword)) {
             redirect('signup.php', 'Passwords do not match.');

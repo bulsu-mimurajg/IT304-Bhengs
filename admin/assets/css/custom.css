@@ -1,5 +1,5 @@
 .sb-topnav{
-  background-color: #de1658;
+  background-color: #de1659c9;
 }
 
 .custom-icon {
@@ -32,7 +32,7 @@
 }
 
 body {
-    background-image: url(' ../img/1.jpg') !important;
+    background-image: url('../../../assets/img/bg-image.png') !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
