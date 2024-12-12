@@ -1,0 +1,19 @@
+Leader:
+Mimura, Jaden
+
+Members:
+Clemente, Charles
+Clemente, Daniel
+Cruz, Lance Reginald
+De Jesus, Novie
+
+
+Function to present: Sales charts
+
+admin account:
+email: vioaescode@gmail.com
+password: root
+
+customer account (premade):
+email: mimuraschool@gmail.com
+password: Customer1
